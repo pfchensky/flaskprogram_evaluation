@@ -60,4 +60,4 @@ if __name__ == '__main__':
     with app.app_context():
         # This will create the database tables for our data models
         db.create_all()
-    app.run()
+    app.run(debug=True)
