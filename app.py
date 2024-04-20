@@ -1,12 +1,22 @@
 from flask import Flask,render_template,request,redirect,url_for
 from models import db, Courses, Degrees, Instructors, Sections, LearningObjectives, Evaluations, DegreeCourses, CourseObjectives
+import os
+from dotenv import load_dotenv
 
 
 app = Flask(__name__)
 
+# 加载 .env 文件中的环境变量
+load_dotenv()
+
+user = os.getenv('DB_USER')
+password = os.getenv('DB_PASS')
+dbname = os.getenv('DB_NAME')
+
 # Format of SQLAlchemy database URI is:
 # dialect+driver://username:password@host:port/database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:xiaobencpf205@localhost:3306/program_evaluation'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:xiaobencpf205@localhost:3306/program_evaluation'
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{user}:{password}@localhost:3306/{dbname}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # to suppress a warning message
 
 # Initialize db with app
