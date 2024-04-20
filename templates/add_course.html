@@ -1,0 +1,20 @@
+<!-- templates/add_course.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Include Bootstrap CSS or any other styling here -->
+</head>
+<body>
+    <h2>Add course</h2>
+    <form action="{{ url_for('add_course') }}" method="post">
+        <label for="course_number">Course number:</label>
+        <input type="text" id="course_number" name="course_number" required>
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <button type="submit">Save</button>
+        <!-- Add more buttons if needed -->
+    </form>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!-- templates/edit_course.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Include Bootstrap CSS or any other styling here -->
+</head>
+<body>
+    <h2>Edit Course</h2>
+    <form action="" method="post">
+        <label for="course_number">Course number:</label>
+        <input type="text" id="course_number" name="course_number" value="{{ course.course_id }}" required>
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="{{ course.name }}" required>
+
+        <button type="submit">Update</button>
+    </form>
+</body>
+</html>
