@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAlchemy()
+from database import db, config_app 
 
 # 定义 Degrees 模型
 class Degrees(db.Model):
