@@ -4,20 +4,11 @@
 
 .
 ├── README.md
-├── **pycache**
-│ ├── app.cpython-39.pyc
-│ ├── database.cpython-311.pyc
-│ ├── database.cpython-39.pyc
-│ ├── models.cpython-311.pyc
-│ ├── models.cpython-312.pyc
-│ └── models.cpython-39.pyc
 ├── app.py
 ├── database.py
 ├── models.py
 ├── requirements.txt
 ├── routes
-│ ├── **init**.py
-│ ├── **pycache**
 │ ├── course_routes.py
 │ ├── degree_routes.py
 │ ├── evaluation_routes.py
