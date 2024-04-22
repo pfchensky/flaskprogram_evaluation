@@ -12,7 +12,7 @@
   <body>
     <div class="container mt-5">
       <h2>Query Evaluations</h2>
-      <form action="/query_evaluation" method="GET" class="mt-4">
+      <form action="/evaluation/process_query" method="GET" class="mt-4">
         <div class="mb-3">
           <label for="degreeName" class="form-label">Degree Name</label>
           <select
@@ -66,6 +66,8 @@
             {% endfor %}
           </select>
         </div>
+
+        <!-- 表单内容保持不变 -->
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>

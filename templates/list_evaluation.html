@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Evaluations List</title>
+  </head>
+  <body>
+    <h1>Evaluations List</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Course</th>
+          <th>Year</th>
+          <th>Semester</th>
+          <th>Score</th>
+          <th>Sections Taught</th>
+          <!-- Add more headers if needed -->
+        </tr>
+      </thead>
+      <tbody>
+        {% for evaluation in evaluations %}
+        <tr>
+          <td>{{ evaluation.course }}</td>
+          <td>{{ evaluation.year }}</td>
+          <td>{{ evaluation.semester }}</td>
+          <td>{{ evaluation.score }}</td>
+          <td>
+            <ul>
+              {% for section in evaluation.sections %}
+              <li>{{ section.name }}</li>
+              {% endfor %}
+            </ul>
+          </td>
+          <!-- Add more data fields if needed -->
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>
