@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Edit Course</title>
+    <title>Edit Degree</title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -45,23 +45,26 @@
     </style>
   </head>
   <body>
-    <h1 class="text-center">Edit Course</h1>
-    <form action="" method="post">
-      <label for="course_number">Course number:</label>
-      <input
-        type="text"
-        id="course_number"
-        name="course_number"
-        value="{{ course.course_id }}"
-        required
-      />
-
-      <label for="name">Name:</label>
+    <h1 class="text-center">Edit Degree</h1>
+    <form
+      action="{{ url_for('edit_degree', name=degree.name, level=degree.level) }}"
+      method="post"
+    >
+      <label for="name">Degree Name:</label>
       <input
         type="text"
         id="name"
         name="name"
-        value="{{ course.name }}"
+        value="{{ degree.name }}"
+        required
+      />
+
+      <label for="level">Level:</label>
+      <input
+        type="text"
+        id="level"
+        name="level"
+        value="{{ degree.level }}"
         required
       />
 
