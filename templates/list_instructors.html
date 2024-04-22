@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>List Courses</title>
+    <title>List Instructors</title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -30,31 +30,30 @@
         margin-right: 5px;
       }
       .header-spacing {
-            margin-bottom: 50px; /* Adjust this value as needed */
-        }
+        margin-bottom: 50px; /* Adjust this value as needed */
+      }
     </style>
   </head>
   <body>
-      <h1 class="text-center header-spacing">Select Course to Change</h1>
-    </header>
+    <h1 class="text-center header-spacing">Select instructors to change</h1>
 
     <main class="container">
       <table class="table">
         <!-- Table headers -->
         <tr>
-          <th>COURSE NUMBER</th>
+          <th>INSTRUCTOR ID</th>
           <th>NAME</th>
           <th>ACTIONS</th>
         </tr>
-        <!-- List courses -->
-        {% for course in courses %}
+        <!-- List instructors -->
+        {% for instructor in instructors %}
         <tr>
-          <td>{{ course.course_id }}</td>
-          <td>{{ course.name }}</td>
+          <td>{{ instructor.instructor_id }}</td>
+          <td>{{ instructor.name }}</td>
           <td>
-            <!-- Add form for deleting a course -->
+            <!-- Add form for deleting an instructor -->
             <form
-              action="{{ url_for('delete_course', course_id=course.course_id) }}"
+              action="{{ url_for('delete_instructor', instructor_id=instructor.instructor_id) }}"
               method="post"
               style="display: inline"
             >
@@ -63,7 +62,7 @@
               </button>
             </form>
             <a
-              href="{{ url_for('edit_course', course_id=course.course_id) }}"
+              href="{{ url_for('edit_instructor', instructor_id=instructor.instructor_id) }}"
               class="btn btn-primary action-button"
               >Edit</a
             >
@@ -71,8 +70,8 @@
         </tr>
         {% endfor %}
       </table>
-      <a href="{{ url_for('add_course_form') }}" class="btn btn-success"
-        >Add Course</a
+      <a href="{{ url_for('add_instructor_form') }}" class="btn btn-success"
+        >Add Instructor</a
       >
     </main>
 

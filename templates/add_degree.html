@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Edit Course</title>
+    <title>Add Degree</title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -20,11 +20,15 @@
         margin-top: 10px;
       }
       input[type="text"],
+      select,
       button {
         display: block;
         width: 100%;
         margin-top: 5px;
         padding: 10px;
+      }
+      select {
+        height: 50px; /* Standard height to match the text input fields */
       }
       button {
         margin-top: 20px;
@@ -45,27 +49,20 @@
     </style>
   </head>
   <body>
-    <h1 class="text-center">Edit Course</h1>
-    <form action="" method="post">
-      <label for="course_number">Course number:</label>
-      <input
-        type="text"
-        id="course_number"
-        name="course_number"
-        value="{{ course.course_id }}"
-        required
-      />
+    <h1 class="text-center">Add Degree</h1>
+    <form action="{{ url_for('add_degree') }}" method="post">
+      <label for="name">Degree Name:</label>
+      <input type="text" id="name" name="name" required />
 
-      <label for="name">Name:</label>
-      <input
-        type="text"
-        id="name"
-        name="name"
-        value="{{ course.name }}"
-        required
-      />
+      <label for="level">Level:</label>
+      <select id="level" name="level" required>
+        <option value="">Select Level</option>
+        <option value="Bachelor">Bachelor</option>
+        <option value="Master">Master</option>
+        <option value="Doctorate">Doctorate</option>
+      </select>
 
-      <button type="submit">Update</button>
+      <button type="submit">Add Degree</button>
     </form>
 
     <footer class="footer">

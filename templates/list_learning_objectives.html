@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>List Learning Objectives</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      .footer {
+        color: gray;
+        padding: 10px 0;
+        text-align: center;
+        margin-top: 40px;
+      }
+      table {
+        width: 100%;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        padding: 10px;
+        border: 1px solid #ccc;
+      }
+      th {
+        background-color: #f8f9fa;
+      }
+      .action-buttons {
+        display: flex;
+        justify-content: start;
+        gap: 10px; /* Spacing between buttons */
+      }
+      .header-spacing {
+        margin-bottom: 50px; /* Adjust this value as needed */
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="text-center header-spacing">List Learning Objectives</h1>
+
+    <main class="container">
+      <table class="table">
+        <!-- Table headers -->
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+        <!-- List learning objectives -->
+        {% for objective in objectives %}
+        <tr>
+          <td>{{ objective.title }}</td>
+          <td>{{ objective.description }}</td>
+          <td class="action-buttons">
+            <!-- Actions: Edit and Delete side by side -->
+            <a
+              href="{{ url_for('edit_learning_objective', learningObjective_id=objective.learningObjective_id) }}"
+              class="btn btn-primary"
+              >Edit</a
+            >
+            <form
+              action="{{ url_for('delete_learning_objective', learningObjective_id=objective.learningObjective_id) }}"
+              method="post"
+              style="margin-bottom: 0"
+            >
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+      <a href="{{ url_for('add_learning_objective') }}" class="btn btn-success"
+        >Add Learning Objective</a
+      >
+    </main>
+
+    <footer class="footer">
+      <p>University Program Evaluation System © 2024</p>
+    </footer>
+  </body>
+</html>

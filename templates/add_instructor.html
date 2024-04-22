@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Edit Course</title>
+    <title>Add Instructor</title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -45,27 +45,12 @@
     </style>
   </head>
   <body>
-    <h1 class="text-center">Edit Course</h1>
-    <form action="" method="post">
-      <label for="course_number">Course number:</label>
-      <input
-        type="text"
-        id="course_number"
-        name="course_number"
-        value="{{ course.course_id }}"
-        required
-      />
-
+    <h1 class="text-center">Add Instructor</h1>
+    <form action="{{ url_for('add_instructor') }}" method="post">
       <label for="name">Name:</label>
-      <input
-        type="text"
-        id="name"
-        name="name"
-        value="{{ course.name }}"
-        required
-      />
+      <input type="text" id="name" name="name" required />
 
-      <button type="submit">Update</button>
+      <button type="submit">Add Instructor</button>
     </form>
 
     <footer class="footer">

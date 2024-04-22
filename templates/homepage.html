@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <h1>
+      Welcome <span class="underlined underline-clip"> to</span
+      ><br />University<span class="underlined underline-mask">Evaluation</span
+      ><br /><span class="underlined underline-overflow">System</span>
+    </h1>
+    <style>
+      *,
+      *:after {
+        box-sizing: border-box;
+      }
+
+      body {
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+        background: hsl(210 30% 24%);
+      }
+
+      h1 {
+        font-size: clamp(3rem, 15vmin, 8rem);
+        font-family: sans-serif;
+        color: hsl(0 0% 98%);
+      }
+
+      .underlined {
+        /*   background: red; */
+        position: relative;
+      }
+
+      .underline-mask:after {
+        content: "";
+        position: absolute;
+        top: 95%;
+        width: 150%;
+        aspect-ratio: 3 / 1;
+        left: 50%;
+        transform: translate(-50%, 0);
+        border-radius: 50%;
+        border: 6px solid hsl(280 80% 50%);
+        /* Use a conic gradient mask to hide and show the bits you want */
+        --spread: 140deg;
+        --start: 290deg;
+        mask: conic-gradient(
+          from var(--start),
+          white 0 var(--spread),
+          transparent var(--spread)
+        );
+      }
+
+      .underline-overflow {
+        display: inline-block;
+        /* A little extra padding and overflow hidden   */
+        overflow: hidden;
+        padding-bottom: clamp(1rem, 2vmin, 2rem);
+      }
+      .underline-overflow:after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        height: 150%;
+        aspect-ratio: 2.5 / 1;
+        left: 50%;
+        transform: translate(-50%, -10%);
+        border-radius: 50%;
+        border: 6px solid hsl(10 80% 50%);
+      }
+
+      .underline-clip:after {
+        content: "";
+        position: absolute;
+        top: 95%;
+        width: 150%;
+        aspect-ratio: 3 / 1;
+        left: 50%;
+        transform: translate(-50%, 0);
+        border-radius: 50%;
+        border: 6px solid hsl(130 80% 50%);
+        /* Use a clip-path to hide and show the bits you want */
+        clip-path: polygon(0 0, 50% 50%, 100% 0);
+      }
+      body {
+        display: flex;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+      }
+      .sidebar {
+        width: 300px;
+        padding: 20px;
+        border-right: 1px solid #ccc;
+      }
+      .main-content {
+        flex-grow: 1;
+        padding: 20px;
+      }
+      .footer {
+        color: gray;
+        padding: 10px 0;
+        text-align: center;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+      }
+      h1,
+      h2 {
+        margin-bottom: 20px;
+      }
+      a {
+        display: block;
+        margin: 10px 0;
+        font-size: 18px;
+        color: #007bff;
+      }
+    </style>
+  </head>
+  <!-- <body>
+    <div class="sidebar">
+      <h2>Basic Information</h2>
+      <a href="{{ url_for('list_courses') }}" class="btn btn-primary"
+        >Manage Courses</a
+      >
+      <a href="{{ url_for('list_degrees') }}" class="btn btn-primary"
+        >Manage Degrees</a
+      >
+      <a href="{{ url_for('list_instructors') }}" class="btn btn-primary"
+        >Manage Instructors</a
+      >
+      <a href="{{ url_for('list_sections') }}" class="btn btn-primary"
+        >Manage Sections</a
+      >
+      <a
+        href="{{ url_for('list_learning_objectives') }}"
+        class="btn btn-primary"
+        >Manage Learning Objectives</a
+      >
+    </div>
+    <div class="main-content">
+      <h1>Welcome to the University Program Evaluation System</h1>
+    </div>
+
+    <footer class="footer">
+      <p>University Program Evaluation System © 2024</p>
+    </footer>
+  </body> -->
+</html>
