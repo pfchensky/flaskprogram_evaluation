@@ -8,12 +8,12 @@ def init_instructor_routes(app):
         # 从数据库获取所有教师信息
         instructors = Instructors.query.all()
         # 渲染显示教师的页面
-        return render_template('list_instructors.html', instructors=instructors)
+        return render_template('dataEntryPage/list_instructors.html', instructors=instructors)
 
     @app.route('/add_instructor', methods=['GET'])
     def add_instructor_form():
         # 返回添加教师的表单页面
-        return render_template('add_instructor.html')
+        return render_template('dataEntryPage/add_instructor.html')
 
     @app.route('/add_instructor', methods=['POST'])
     def add_instructor():
@@ -46,4 +46,4 @@ def init_instructor_routes(app):
             db.session.commit()
             return redirect(url_for('list_instructors'))
         # 如果是GET请求，显示编辑表单
-        return render_template('edit_instructor.html', instructor=instructor)
+        return render_template('dataEntryPage/edit_instructor.html', instructor=instructor)

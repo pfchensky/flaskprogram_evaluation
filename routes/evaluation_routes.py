@@ -11,7 +11,7 @@ def query_form():
     degree_levels = db.session.query(Degrees.level).distinct().all()
     instructors = Instructors.query.all()
     semesters = ["Spring", "Summer", "Fall"]
-    return render_template('query_evaluation.html', degree_names=degree_names, degree_levels=degree_levels, instructors=instructors, semesters=semesters)
+    return render_template('evaluationPage/query_evaluation.html', degree_names=degree_names, degree_levels=degree_levels, instructors=instructors, semesters=semesters)
 
 @evaluation_routes.route('/process_query', methods=['GET'])
 def process_query():
@@ -45,7 +45,7 @@ def list_evaluation():
     if not evaluations:
         print("No evaluations found")  # Debug statement
 
-    return render_template('list_evaluation.html', evaluations=evaluations)
+    return render_template('evaluationPage/list_evaluation.html', evaluations=evaluations)
 
 @evaluation_routes.route('/edit', methods=['POST'])
 def edit_evaluation():

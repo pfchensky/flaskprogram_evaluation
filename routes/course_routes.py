@@ -8,12 +8,12 @@ def init_course_routes(app):
         # 从数据库获取所有课程
         courses = Courses.query.all()
         # 渲染显示课程的页面
-        return render_template('list_courses.html', courses=courses)
+        return render_template('dataEntryPage/list_courses.html', courses=courses)
 
     @app.route('/add_course', methods=['GET'])
     def add_course_form():
         # 返回添加课程的表单页面
-        return render_template('add_course.html')
+        return render_template('dataEntryPage/add_course.html')
 
     @app.route('/add_course', methods=['POST'])
     def add_course():
@@ -49,4 +49,4 @@ def init_course_routes(app):
             db.session.commit()
             return redirect(url_for('list_courses'))
         # 如果是GET请求，显示编辑表单
-        return render_template('edit_course.html', course=course)
+        return render_template('dataEntryPage/edit_course.html', course=course)

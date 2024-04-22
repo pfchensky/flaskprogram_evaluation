@@ -6,7 +6,7 @@ def init_section_routes(app):
     @app.route('/sections')
     def list_sections():
         sections = Sections.query.all()
-        return render_template('list_sections.html', sections=sections)
+        return render_template('dataEntryPage/list_sections.html', sections=sections)
 
     @app.route('/add_section', methods=['GET', 'POST'])
     def add_section():
@@ -30,7 +30,7 @@ def init_section_routes(app):
 
         courses = Courses.query.all()
         instructors = Instructors.query.all()
-        return render_template('add_section.html', courses=courses, instructors=instructors)
+        return render_template('dataEntryPage/add_section.html', courses=courses, instructors=instructors)
 
     @app.route('/delete_section/<int:section_id>', methods=['POST'])
     def delete_section(section_id):
@@ -53,4 +53,4 @@ def init_section_routes(app):
 
         courses = Courses.query.all()
         instructors = Instructors.query.all()
-        return render_template('edit_section.html', section=section, courses=courses, instructors=instructors)
+        return render_template('dataEntryPage/edit_section.html', section=section, courses=courses, instructors=instructors)
