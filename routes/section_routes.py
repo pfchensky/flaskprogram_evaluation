@@ -1,6 +1,5 @@
 from flask import render_template, request, redirect, url_for
-from models import Sections, Courses, Instructors
-from database import db
+from models import db, Sections, Courses, Instructors
 
 def init_section_routes(app):
     @app.route('/sections')
@@ -54,3 +53,9 @@ def init_section_routes(app):
         courses = Courses.query.all()
         instructors = Instructors.query.all()
         return render_template('dataEntryPage/edit_section.html', section=section, courses=courses, instructors=instructors)
+
+    @app.route('/sections/<int:instructor_id>')
+    def list_sections_by_instructor(instructor_id):
+        # This is where we define sections
+        sections = Sections.query.filter_by(instructor_id=instructor_id).all()
+        return render_template('dataEntryPage/list_sections_by_instructor.html', sections=sections, instructor_id=instructor_id)
