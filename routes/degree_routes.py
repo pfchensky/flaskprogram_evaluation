@@ -6,9 +6,15 @@ def init_degree_routes(app):
     @app.route('/degrees')
     def list_degrees():
         degrees = Degrees.query.all()
+        # 渲染显示学位的页面
         return render_template('list_degrees.html', degrees=degrees)
 
-    @app.route('/add_degree', methods=['GET', 'POST'])
+    @app.route('/add_degree', methods=['GET'])
+    def add_degree_form():
+        # 返回添加学位的表单页面
+        return render_template('add_degree.html')
+
+    @app.route('/add_degree', methods=['POST'])
     def add_degree():
         if request.method == 'POST':
             name = request.form['name']
@@ -51,4 +57,5 @@ def init_degree_routes(app):
             db.session.commit()
             flash('Degree updated successfully.', 'success')
             return redirect(url_for('list_degrees'))
+        # 如果是GET请求，显示编辑表单
         return render_template('edit_degree.html', degree=degree)

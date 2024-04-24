@@ -1,0 +1,53 @@
+/* styles.css */
+body {
+  padding: 20px;
+  background-color: #f5f7f8; /* Light grey background */
+}
+
+form {
+  max-width: 600px;
+  margin: auto;
+  background-color: #495e57; /* Dark green background */
+  padding: 20px;
+  border-radius: 8px;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+  color: #45474b; /* Dark grey text */
+}
+
+input[type="text"],
+button {
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+input[type="text"] {
+  border: 1px solid #495e57; /* Dark green border */
+}
+
+button {
+  margin-top: 20px;
+  background-color: #f4ce14; /* Yellow button */
+  color: #45474b; /* Dark grey text */
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #b3a20e; /* Darker yellow on hover */
+}
+
+.footer {
+  color: gray;
+  padding: 10px 0;
+  text-align: center;
+  margin-top: 40px;
+  background-color: #45474b; /* Dark grey footer */
+  color: #ffffff; /* White text */
+}

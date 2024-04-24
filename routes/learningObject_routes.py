@@ -6,7 +6,7 @@ def init_learning_objective_routes(app):
     @app.route('/learning_objectives')
     def list_learning_objectives():
         objectives = LearningObjectives.query.all()
-        return render_template('list_learning_objectives.html', objectives=objectives)
+        return render_template('dataEntryPage/list_learning_objectives.html', objectives=objectives)
 
     @app.route('/add_learning_objective', methods=['GET', 'POST'])
     def add_learning_objective():
@@ -18,7 +18,7 @@ def init_learning_objective_routes(app):
             db.session.commit()
             return redirect(url_for('list_learning_objectives'))
 
-        return render_template('add_learning_objective.html')
+        return render_template('dataEntryPage/add_learning_objective.html')
 
     @app.route('/delete_learning_objective/<int:learningObjective_id>', methods=['POST'])
     def delete_learning_objective(learningObjective_id):
@@ -36,4 +36,4 @@ def init_learning_objective_routes(app):
             db.session.commit()
             return redirect(url_for('list_learning_objectives'))
 
-        return render_template('edit_learning_objective.html', objective=objective)
+        return render_template('dataEntryPage/edit_learning_objective.html', objective=objective)
