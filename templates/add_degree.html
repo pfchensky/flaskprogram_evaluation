@@ -28,7 +28,7 @@
         padding: 10px;
       }
       select {
-        height: 50px; /* Standard height to match the text input fields */
+        height: 55px; /* Standard height to match the text input fields */
       }
       button {
         margin-top: 20px;
@@ -53,14 +53,24 @@
     <form action="{{ url_for('add_degree') }}" method="post">
       <label for="name">Degree Name:</label>
       <input type="text" id="name" name="name" required />
-
       <label for="level">Level:</label>
       <select id="level" name="level" required>
-        <option value="">Select Level</option>
-        <option value="Bachelor">Bachelor</option>
-        <option value="Master">Master</option>
-        <option value="Doctorate">Doctorate</option>
+        <option value="BA">BA</option>
+        <option value="BS">BS</option>
+        <option value="MS">MS</option>
+        <option value="Ph.D">Ph.D</option>
+        <option value="Cert">Cert</option>
+        <!-- Future options can be added here -->
+        <option value="custom">--</option>
       </select>
+
+      <input
+        type="text"
+        id="customLevel"
+        name="customLevel"
+        placeholder="Enter Custom Level"
+        style="display: none"
+      />
 
       <button type="submit">Add Degree</button>
     </form>
@@ -68,5 +78,26 @@
     <footer class="footer">
       <p>University Program Evaluation System © 2024</p>
     </footer>
+
+    <script>
+      document.getElementById("level").addEventListener("change", function () {
+        var levelSelect = this;
+        var customLevelOption = document.querySelector(
+          'option[value="custom"]'
+        );
+        var customLevelInput = document.getElementById("customLevel");
+
+        if (levelSelect.value === "custom") {
+          customLevelInput.style.display = "block"; // Show the input element
+          customLevelInput.setAttribute("required", "true");
+          customLevelInput.focus();
+          levelSelect.style.display = "none"; // Hide the select element
+          customLevelOption.style.display = "none"; // Hide the custom option
+        } else {
+          customLevelInput.style.display = "none"; // Hide the input element
+          customLevelInput.removeAttribute("required");
+        }
+      });
+    </script>
   </body>
 </html>
