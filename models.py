@@ -63,6 +63,5 @@ class DegreeCourses(db.Model):
 # 定义 CourseObjectives 模型
 class CourseObjectives(db.Model):
     __tablename__ = 'CourseObjectives'
-    degree_name = db.Column(db.String(255), primary_key=True)
-    degree_level = db.Column(db.String(255), primary_key=True)
+    course_id = db.Column(db.String(7), db.ForeignKey('Courses.course_id'), primary_key=True)
     learningObjective_id = db.Column(db.Integer, db.ForeignKey('LearningObjectives.learningObjective_id'), primary_key=True)
