@@ -12,7 +12,11 @@
   <body>
     <div class="container mt-5">
       <h2>Query sections taught by instructors</h2>
-      <form action="/query/query_instructor" method="GET" class="mt-4">
+      <form
+        action="{{ url_for('query_instructor_routes.instructor_query') }}"
+        method="GET"
+        class="mt-4"
+      >
         <div class="mb-3">
           <label for="instructorName" class="form-label">Instructor Name</label>
           <select
@@ -22,9 +26,18 @@
             required
           >
             <option selected disabled value="">Choose...</option>
-            {% for instructor_name in instructors_names %}
+            {% for instructor_name in instructor_names %}
             <option value="{{ instructor_name }}">{{ instructor_name }}</option>
             {% endfor %}
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="semester" class="form-label">Semester</label>
+          <select class="form-select" id="semester" name="semester" required>
+            <option selected disabled value="">Choose...</option>
+            <option value="Spring">Spring</option>
+            <option value="Summer">Summer</option>
+            <option value="Fall">Fall</option>
           </select>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
