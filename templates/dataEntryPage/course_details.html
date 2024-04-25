@@ -14,6 +14,12 @@
       .edit-button {
         margin-left: 10px; /* Space between text and button */
       }
+      .footer {
+        color: gray;
+        padding: 10px 0;
+        text-align: center;
+        margin-top: 40px;
+      }
     </style>
   </head>
   <body>
@@ -41,8 +47,17 @@
         </ul>
       </div>
 
-      <div class="card">
-        <div class="card-header">Learning Objectives</div>
+      <div class="card mb-3">
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
+          <span>Learning Objectives</span>
+          <a
+            href="{{ url_for('add_learning_objective') }}"
+            class="btn btn-primary btn-sm"
+            >Add Learning Objective</a
+          >
+        </div>
         <ul class="list-group list-group-flush">
           {% for objective in objectives %}
           <li class="list-group-item">
@@ -64,5 +79,9 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <footer class="footer">
+      <p>University Program Evaluation System © 2024</p>
+    </footer>
   </body>
 </html>
