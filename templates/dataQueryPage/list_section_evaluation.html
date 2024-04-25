@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sections for {{ year }} {{ semester }}</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      .footer {
+        color: gray;
+        padding: 10px 0;
+        text-align: center;
+        margin-top: 40px;
+      }
+      table {
+        width: 100%;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        padding: 10px;
+        border: 1px solid #ccc;
+      }
+      th {
+        background-color: #f8f9fa;
+      }
+      .action-button {
+        margin-right: 5px;
+      }
+      .header-spacing {
+        margin-bottom: 50px; /* Adjust this value as needed */
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="text-center header-spacing">
+      Sections for {{ year }} {{ semester }}
+    </h1>
+
+    <main class="container">
+      <table class="table">
+        <!-- Table headers -->
+        <tr>
+          <th>Section ID</th>
+          <th>Course ID</th>
+          <th>Instructor ID</th>
+          <th>Enrollment Count</th>
+          <th>Evaluation Status</th>
+          <th>Actions</th>
+        </tr>
+        <!-- List sections and their evaluation status -->
+        {% for item in sections_evaluation %}
+        <tr>
+          <td>{{ item.section.section_id }}</td>
+          <td>{{ item.section.course_id }}</td>
+          <td>{{ item.section.instructor_id }}</td>
+          <td>{{ item.section.enrollment_count }}</td>
+          <td>{{ item.evaluation_status }}</td>
+          <td>
+            <!-- Placeholder for actions - adjust as needed -->
+            <a href="#" class="btn btn-primary action-button">View</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </main>
+
+    <footer class="footer">
+      <p>University Program Evaluation System © 2024</p>
+    </footer>
+  </body>
+</html>
