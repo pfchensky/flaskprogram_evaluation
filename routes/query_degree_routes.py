@@ -1,27 +1,27 @@
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify
 from models import db, Degrees, Instructors, Sections, Evaluations, DegreeCourses, Courses, CourseObjectives, LearningObjectives
 from database import db
-query_degree_routes = Blueprint('query_degree_routes', __name__)
+query_routes = Blueprint('query_routes', __name__)
 
 
-@query_degree_routes.route('/query_degree', methods=['GET'])
+@query_routes.route('/query_degree', methods=['GET'])
 def query_form():
     print("Route is being called")
     degree_names = db.session.query(Degrees.name).distinct().all()
     degree_levels = db.session.query(Degrees.level).distinct().all()
     return render_template('dataQueryPage/query_degree.html', degree_names=degree_names, degree_levels=degree_levels)
 
-@query_degree_routes.route('/degree_query', methods=['GET'])
+@query_routes.route('/degree_query', methods=['GET'])
 def degree_query():
 
     degree_name = request.args.get('degree_name')
     degree_level = request.args.get('degree_level')
-    return redirect(url_for('query_degree_routes.list_degree_courses',
+    return redirect(url_for('query_routes.list_degree_courses',
                             degree_name=degree_name,
                             degree_level=degree_level,))
 from flask import jsonify
 
-@query_degree_routes.route('/list_degree_courses')
+@query_routes.route('/list_degree_courses')
 def list_degree_courses():
     # Assuming you want to filter by degree name and level
     degree_name = request.args.get('degree_name')
@@ -34,8 +34,7 @@ def list_degree_courses():
     query = db.session.query(Sections, Courses, DegreeCourses, CourseObjectives, LearningObjectives). \
         join(Courses, Sections.course_id == Courses.course_id). \
         join(DegreeCourses, Courses.course_id == DegreeCourses.course_number). \
-        join(CourseObjectives, (DegreeCourses.degree_name == CourseObjectives.degree_name) &
-             (DegreeCourses.degree_level == CourseObjectives.degree_level)). \
+        join(CourseObjectives, Courses.course_id == CourseObjectives.course_id). \
         join(LearningObjectives, LearningObjectives.learningObjective_id == CourseObjectives.learningObjective_id). \
         filter(DegreeCourses.degree_name == degree_name, DegreeCourses.degree_level == degree_level). \
         all()
