@@ -11,6 +11,9 @@
       .container {
         margin-top: 20px;
       }
+      .edit-button {
+        margin-left: 10px; /* Space between text and button */
+      }
     </style>
   </head>
   <body>
@@ -44,6 +47,11 @@
           {% for objective in objectives %}
           <li class="list-group-item">
             {{ objective.title }}: {{ objective.description }}
+            <a
+              href="{{ url_for('edit_learning_objective', learningObjective_id=objective.learningObjective_id) }}"
+              class="btn btn-secondary btn-sm edit-button"
+              >Edit</a
+            >
           </li>
           {% endfor %}
         </ul>
