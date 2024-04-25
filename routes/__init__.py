@@ -9,6 +9,8 @@ from .home_routes import init_home_routes
 from .course_routes import init_course_routes
 from .evaluation_routes import evaluation_routes
 from .query_instructor_routes import query_instructor_routes
+from .query_section_routes import query_section_routes
+
 
 def init_all_routes(app):
     # Data Entry
