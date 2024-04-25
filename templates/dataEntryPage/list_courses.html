@@ -26,17 +26,36 @@
       th {
         background-color: #f8f9fa;
       }
+      /* Ensures all buttons have the same styling */
+      .btn {
+        padding: 0.375rem 0.75rem; /* Bootstrap's default padding for buttons */
+        font-size: 1rem; /* Bootstrap's default font size for buttons */
+        line-height: 1.5; /* Bootstrap's default line height for buttons */
+        border-radius: 0.25rem; /* Bootstrap's default border radius for buttons */
+        /* Adjust the above values as needed to match the 'View Details' button */
+      }
+      /* Additional style to ensure consistency in button size */
       .action-button {
-        margin-right: 5px;
+        /* Apply the same padding and font size to all action buttons to make them consistent */
+        padding: 0.375rem 0.75rem; /* Bootstrap default for medium buttons */
+        font-size: 1rem; /* Bootstrap default for medium buttons */
+        /* Remove individual margins if using flexbox spacing */
+        margin-bottom: 5px; /* Spacing for when buttons wrap */
+      }
+      /* Flex container style for action buttons */
+      .actions-cell {
+        display: flex;
+        justify-content: space-around; /* Space out buttons evenly */
+        align-items: center; /* Center buttons vertically */
+        flex-wrap: wrap; /* Wrap buttons to next line if space is insufficient */
       }
       .header-spacing {
-            margin-bottom: 50px; /* Adjust this value as needed */
-        }
+        margin-bottom: 50px; /* Adjust this value as needed */
+      }
     </style>
   </head>
   <body>
-      <h1 class="text-center header-spacing">Select Course to Change</h1>
-    </header>
+    <h1 class="text-center header-spacing">Select Course to Change</h1>
 
     <main class="container">
       <table class="table">
@@ -46,17 +65,16 @@
           <th>NAME</th>
           <th>ACTIONS</th>
         </tr>
-        <!-- List courses -->
+        <!-- Inside the loop for courses -->
         {% for course in courses %}
         <tr>
           <td>{{ course.course_id }}</td>
           <td>{{ course.name }}</td>
-          <td>
-            <!-- Add form for deleting a course -->
+          <td class="actions-cell">
             <form
               action="{{ url_for('delete_course', course_id=course.course_id) }}"
               method="post"
-              style="display: inline"
+              style="display: inline-block"
             >
               <button type="submit" class="btn btn-danger action-button">
                 Delete
@@ -66,6 +84,11 @@
               href="{{ url_for('edit_course', course_id=course.course_id) }}"
               class="btn btn-primary action-button"
               >Edit</a
+            >
+            <a
+              href="{{ url_for('course_details',course_id=course.course_id) }}"
+              class="btn btn-info action-button"
+              >View Details</a
             >
           </td>
         </tr>

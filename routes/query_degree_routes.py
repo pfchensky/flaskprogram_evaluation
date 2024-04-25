@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify
 from models import db, Degrees, Instructors, Sections, Evaluations, DegreeCourses, Courses, CourseObjectives, LearningObjectives
 from database import db
+from flask import jsonify
 query_degree_routes = Blueprint('query_degree_routes', __name__)
 
 
@@ -19,7 +20,7 @@ def degree_query():
     return redirect(url_for('query_degree_routes.list_degree_courses',
                             degree_name=degree_name,
                             degree_level=degree_level,))
-from flask import jsonify
+
 
 @query_degree_routes.route('/list_degree_courses')
 def list_degree_courses():

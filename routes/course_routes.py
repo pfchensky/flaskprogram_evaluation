@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for
-from models import Courses
+from models import CourseObjectives, Courses, DegreeCourses, Degrees, LearningObjectives
 from database import db
 
 def init_course_routes(app):
@@ -50,3 +50,18 @@ def init_course_routes(app):
             return redirect(url_for('list_courses'))
         # 如果是GET请求，显示编辑表单
         return render_template('dataEntryPage/edit_course.html', course=course)
+    
+    @app.route('/course_details/<course_id>', methods=['GET'])
+    def course_details(course_id):
+        # Get the course by course_id
+        course = Courses.query.get_or_404(course_id)
+        # Find associated degrees with this course
+        associated_degrees = DegreeCourses.query.filter_by(course_number=course_id).all()
+        degrees = [Degrees.query.filter_by(name=degree.degree_name, level=degree.degree_level).first() for degree in associated_degrees]
+        # Get all the learning objectives associated with this course
+        course_objectives = CourseObjectives.query.filter_by(course_id=course_id).all()
+        objectives = [LearningObjectives.query.get(obj.learningObjective_id) for obj in course_objectives]
+
+        return render_template('dataEntryPage/course_details.html', course=course, degrees=degrees, 
+objectives=objectives)
+
