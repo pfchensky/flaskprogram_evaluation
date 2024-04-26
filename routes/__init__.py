@@ -28,3 +28,4 @@ def init_all_routes(app):
     app.register_blueprint(query_degree_routes, url_prefix='/query')# 可以添加 url_prefix 作为路由前缀
     app.register_blueprint(query_course_routes, url_prefix='/query')
     app.register_blueprint(query_instructor_routes, url_prefix='/query')
+    app.register_blueprint(query_section_routes, url_prefix='/query')

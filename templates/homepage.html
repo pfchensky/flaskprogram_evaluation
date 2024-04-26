@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+  <div>{% include 'navbar.html' %}</div>
   <head>
     <meta charset="UTF-8" />
     <h1>
       Welcome <span class="underlined underline-clip"> to</span
-      ><br />University<span class="underlined underline-mask"> Evaluation</span
+      ><br />Program<span class="underlined underline-mask"> Evaluation</span
       ><br /><span class="underlined underline-overflow">System</span>
     </h1>
     <style>
@@ -13,21 +14,14 @@
         box-sizing: border-box;
       }
 
-      body {
-        display: grid;
-        place-items: center;
-        min-height: 100vh;
-        background: hsl(210 30% 24%);
-      }
-
       h1 {
         font-size: clamp(3rem, 15vmin, 8rem);
         font-family: sans-serif;
-        color: hsl(0 0% 98%);
+        color: #3f72af;
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #fff;
       }
 
       .underlined {
-        /*   background: red; */
         position: relative;
       }
 
@@ -40,7 +34,7 @@
         left: 50%;
         transform: translate(-50%, 0);
         border-radius: 50%;
-        border: 6px solid hsl(280 80% 50%);
+        border: 6px solid #ffd1e3;
         /* Use a conic gradient mask to hide and show the bits you want */
         --spread: 140deg;
         --start: 290deg;
@@ -66,7 +60,7 @@
         left: 50%;
         transform: translate(-50%, -10%);
         border-radius: 50%;
-        border: 6px solid hsl(10 80% 50%);
+        border: 6px solid #5bbcff;
       }
 
       .underline-clip:after {
@@ -78,7 +72,7 @@
         left: 50%;
         transform: translate(-50%, 0);
         border-radius: 50%;
-        border: 6px solid hsl(130 80% 50%);
+        border: 6px solid #fffab7;
         /* Use a clip-path to hide and show the bits you want */
         clip-path: polygon(0 0, 50% 50%, 100% 0);
       }
@@ -118,33 +112,4 @@
       }
     </style>
   </head>
-  <!-- <body>
-    <div class="sidebar">
-      <h2>Basic Information</h2>
-      <a href="{{ url_for('list_courses') }}" class="btn btn-primary"
-        >Manage Courses</a
-      >
-      <a href="{{ url_for('list_degrees') }}" class="btn btn-primary"
-        >Manage Degrees</a
-      >
-      <a href="{{ url_for('list_instructors') }}" class="btn btn-primary"
-        >Manage Instructors</a
-      >
-      <a href="{{ url_for('list_sections') }}" class="btn btn-primary"
-        >Manage Sections</a
-      >
-      <a
-        href="{{ url_for('list_learning_objectives') }}"
-        class="btn btn-primary"
-        >Manage Learning Objectives</a
-      >
-    </div>
-    <div class="main-content">
-      <h1>Welcome to the University Program Evaluation System</h1>
-    </div>
-
-    <footer class="footer">
-      <p>University Program Evaluation System © 2024</p>
-    </footer>
-  </body> -->
 </html>

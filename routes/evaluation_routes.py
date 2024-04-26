@@ -27,26 +27,6 @@ def process_query():
                             semester=semester,
                             instructor_id=instructor_id))
 
-# @evaluation_routes.route('/list_evaluation', methods=['GET'])
-# def list_evaluation():
-#     degree_name = request.args.get('degree_name')
-#     degree_level = request.args.get('degree_level')
-#     semester = request.args.get('semester')
-#     instructor_id = request.args.get('instructor_id')
-#
-#     evaluations = Evaluations.query \
-#         .join(Sections, Sections.section_id == Evaluations.section_id) \
-#         .join(DegreeCourses, DegreeCourses.course_number == Sections.course_id) \
-#         .filter(Sections.instructor_id == instructor_id,
-#                 Sections.semester == semester,
-#                 DegreeCourses.degree_name == degree_name,
-#                 DegreeCourses.degree_level == degree_level) \
-#         .all()
-#
-#     if not evaluations:
-#         print("No evaluations found")  # Debug statement
-#
-#     return render_template('evaluationPage/list_evaluation.html', evaluations=evaluations)
 from flask import jsonify
 
 @evaluation_routes.route('/list_evaluation', methods=['GET'])

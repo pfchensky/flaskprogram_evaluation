@@ -2,62 +2,19 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Add Course</title>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    />
-    <style>
-      body {
-        padding: 20px;
-      }
-      form {
-        max-width: 600px;
-        margin: auto;
-      }
-      label {
-        display: block;
-        margin-top: 10px;
-      }
-      input[type="text"],
-      button {
-        display: block;
-        width: 100%;
-        margin-top: 5px;
-        padding: 10px;
-      }
-      button {
-        margin-top: 20px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        cursor: pointer;
-      }
-      button:hover {
-        background-color: #0056b3;
-      }
-      .footer {
-        color: gray;
-        padding: 10px 0;
-        text-align: center;
-        margin-top: 40px;
-      }
-    </style>
+    <title class="h1">Add Course</title>
+    <link rel="stylesheet" href="/static/styles.css" />
   </head>
   <body>
+    {% include 'navbar.html' %}
     <h1 class="text-center">Add Course</h1>
     <form action="{{ url_for('add_course') }}" method="post">
       <label for="course_number">Course number:</label>
       <input type="text" id="course_number" name="course_number" required />
-
       <label for="name">Name:</label>
       <input type="text" id="name" name="name" required />
 
       <button type="submit">Save</button>
     </form>
-
-    <footer class="footer">
-      <p>University Program Evaluation System © 2024</p>
-    </footer>
   </body>
 </html>
