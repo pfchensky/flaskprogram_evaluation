@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Filtered Sections</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <h1>
+      Filtered Sections for {{ year }} {{ semester }} with F less than {{
+      percentage }}%
+    </h1>
+    <ul>
+      {% for section_evaluation in sections_evaluation %}
+      <li>
+        Section ID: {{ section_evaluation.section.section_id }}, Course ID: {{
+        section_evaluation.section.course_id }}, {% if
+        section_evaluation.evaluation_status == "Reached" %} Evaluation Status:
+        Reached {{ percentage }}% {% else %} Evaluation Status: Not Reached {{
+        percentage }}% {% endif %}, Total Students: {{
+        section_evaluation.total_students }}, Students with F: {{
+        section_evaluation.students_with_f }}
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

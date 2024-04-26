@@ -10,7 +10,7 @@ from .course_routes import init_course_routes
 from .evaluation_routes import evaluation_routes
 from .query_instructor_routes import query_instructor_routes
 from .query_section_routes import query_section_routes
-
+from .query_section_percentage_routes import query_section_percentage_routes
 
 def init_all_routes(app):
     init_home_routes(app)
@@ -20,6 +20,7 @@ def init_all_routes(app):
     app.register_blueprint(query_course_routes, url_prefix='/query')
     app.register_blueprint(query_instructor_routes, url_prefix='/query')
     app.register_blueprint(query_section_routes, url_prefix='/query')
+    app.register_blueprint(query_section_percentage_routes, url_prefix='/query')
     init_degree_routes(app)
     init_instructor_routes(app)
     init_section_routes(app)
