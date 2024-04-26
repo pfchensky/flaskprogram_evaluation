@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navbar</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <nav class="header" role="navigation">
+      <a class="logo" href="{{ url_for('home') }}">Program Evaluation</a>
+      <ul class="navbar">
+        <li>
+          <a href="#">View All Data</a>
+          <ul class="dropdown">
+            <li>
+              <a href="{{ url_for('list_degrees') }}">View All Degrees</a>
+            </li>
+            <li>
+              <a href="{{ url_for('list_courses') }}">View All Courses</a>
+            </li>
+            <li>
+              <a href="{{ url_for('list_instructors') }}"
+                >View All Instructors</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('list_sections') }}">View All Sections</a>
+            </li>
+            <li>
+              <a href="{{ url_for('list_learning_objectives') }}"
+                >View All Objectives
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="{{ url_for('evaluation_routes.query_form') }}"
+            >Enter Evaluation</a
+          >
+        </li>
+        <li>
+          <a href="#">Query Entry</a>
+          <ul class="dropdown">
+            <li>
+              <a href="{{ url_for('query_degree_routes.query_form') }}"
+                >Query by Degrees</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('query_course_routes.query_form') }}"
+                >Query by Courses</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('query_instructor_routes.query_form') }}"
+                >Query by Instructors</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('query_section_routes.select_term') }}"
+                >Query by Semesters</a
+              >
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </body>
+</html>
