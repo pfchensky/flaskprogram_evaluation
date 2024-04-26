@@ -2,25 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Query Sections by Percentage</title>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    />
-    <style>
-      body {
-        padding: 20px;
-      }
-      form {
-        max-width: 500px;
-        margin: 20px auto;
-      }
-      .form-group {
-        margin-bottom: 15px;
-      }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Query Sections by F Percentage</title>
+    <link rel="stylesheet" href="/static/styles.css" />
   </head>
   <body>
+    {% include 'navbar.html' %}
     <h1>Query Sections by Year and Semester</h1>
     <form
       action="{{ url_for('query_section_percentage_routes.query_form') }}"

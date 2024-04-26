@@ -2,29 +2,47 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Filtered Sections</title>
-    <link
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+    <title>Sections for {{ year }} {{ semester }}</title>
+    <link rel="stylesheet" href="/static/styles.css" />
   </head>
   <body>
-    <h1>
+    {% include 'navbar.html' %}
+    <h1 class="text-center header-spacing">
       Filtered Sections for {{ year }} {{ semester }} with F less than {{
       percentage }}%
     </h1>
-    <ul>
-      {% for section_evaluation in sections_evaluation %}
-      <li>
-        Section ID: {{ section_evaluation.section.section_id }}, Course ID: {{
-        section_evaluation.section.course_id }}, {% if
-        section_evaluation.evaluation_status == "Reached" %} Evaluation Status:
-        Reached {{ percentage }}% {% else %} Evaluation Status: Not Reached {{
-        percentage }}% {% endif %}, Total Students: {{
-        section_evaluation.total_students }}, Students with F: {{
-        section_evaluation.students_with_f }}
-      </li>
-      {% endfor %}
-    </ul>
+    <main class="container">
+      <table class="table">
+        <!-- Table headers -->
+        <tr>
+          <th>Section ID</th>
+          <th>Course ID</th>
+          <th>Instructor ID</th>
+          <th>Enrollment Count</th>
+          <th>Evaluation Status</th>
+          <th>Total Students</th>
+          <th>Students with F</th>
+        </tr>
+        <!-- List sections and their evaluation status -->
+        {% for section_evaluation in sections_evaluation %}
+        <tr>
+          <td>{{ section_evaluation.section.section_id }}</td>
+          <td>{{ section_evaluation.section.course_id }}</td>
+          <td>{{ section_evaluation.section.instructor_id }}</td>
+          <td>{{ section_evaluation.section.enrollment_count }}</td>
+          <td>
+            {% if section_evaluation.evaluation_status == "Reached" %} Reached
+            {{ percentage }}% {% else %} Not Reached {{ percentage }}% {% endif
+            %}
+          </td>
+          <td>{{ section_evaluation.total_students }}</td>
+          <td>{{ section_evaluation.students_with_f }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </main>
+    <footer class="footer">
+      <p>University Program Evaluation System © 2024</p>
+    </footer>
   </body>
 </html>
