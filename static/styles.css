@@ -18,7 +18,13 @@ body {
   align-items: center;
   z-index: 1000;
   height: 60px;
+  text-decoration: none;
 }
+h1 {
+  text-align: center;
+  color: #3f72af;
+}
+
 h1.text-center {
   font-size: 40px; /* Example size, adjust as needed */
   color: #3f72af; /* Example color, adjust as needed */
@@ -30,6 +36,7 @@ h1.text-center {
   color: #f9f7f7;
   font-weight: bold;
   text-decoration: none;
+  font-family: sans-serif;
 }
 
 .logo,
@@ -115,7 +122,7 @@ label {
 input[type="text"],
 button {
   display: block;
-  width: 100%;
+  width: 97%;
   margin-top: 5px;
   padding: 10px;
 }
@@ -141,5 +148,132 @@ button:hover {
   .header,
   .navbar {
     flex-direction: column;
+  }
+}
+
+textarea {
+  width: 97%; /* Ensures that the textarea width matches other input fields */
+  padding: 10px; /* Padding for internal spacing */
+  margin-top: 5px; /* Consistent spacing with other inputs */
+  border-radius: 4px; /* Rounded corners to match other inputs */
+  border: 1px solid #ccc; /* Border to match the styling of text inputs */
+  font-size: 16px; /* Font size for readability, adjust as needed */
+  height: 150px; /* Sets a fixed height for the textarea */
+  resize: vertical; /* Allows the user to resize the textarea vertically */
+}
+
+select {
+  width: 100%; /* Makes the dropdowns full width of their container */
+  padding: 10px; /* Adds some padding inside the dropdowns */
+  margin-top: 5px; /* Adds margin to the top of the dropdowns */
+  margin-bottom: 15px; /* Adds space below the dropdowns */
+  border: 1px solid #ccc; /* Adds a border to the dropdowns with a light grey color */
+  border-radius: 4px; /* Rounds the corners of the dropdowns */
+  font-size: 16px; /* Sets the font size within the dropdowns */
+  background-color: white; /* Sets the background color of the dropdowns */
+  box-sizing: border-box; /* Includes padding and border in the width and height */
+  -webkit-appearance: none; /* Removes default styling specific to WebKit browsers */
+  -moz-appearance: none; /* Removes default styling specific to Mozilla browsers */
+  appearance: none; /* Removes default styling for dropdowns */
+  cursor: pointer; /* Changes the cursor to indicate it's clickable */
+}
+
+/* Style the dropdown arrow */
+select {
+  background-image: url("dropdown-arrow.svg");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px 12px; /* Adjust the size of your icon */
+}
+
+/* To style the focus state of the dropdown */
+select:focus {
+  border-color: #3f72af; /* A darker border color when the dropdown is focused */
+  outline: none; /* Removes the default focus outline */
+}
+/* Styles specific to number input fields */
+input[type="number"] {
+  width: 100%; /* Full width of their container */
+  padding: 10px; /* Padding inside the inputs for space */
+  margin-top: 5px; /* Space to the top of the inputs */
+  margin-bottom: 15px; /* Space below the inputs */
+  border: 1px solid #ccc; /* Light grey border */
+  border-radius: 4px; /* Rounded corners for the inputs */
+  font-size: 16px; /* Size of the text inside the inputs */
+  line-height: 1.5; /* The height of each line of text */
+  background-color: white; /* Background color of the inputs */
+  box-sizing: border-box; /* Padding and border included in the width and height */
+  cursor: text; /* Changes the cursor to indicate text can be entered */
+}
+
+/* Style for focus state to improve visibility when the input is active */
+input[type="number"]:focus {
+  border-color: #3f72af; /* A darker border color for focus */
+  outline: none; /* Remove default focus outline */
+}
+.table {
+  width: 100%;
+  margin-top: 20px;
+  background-color: white; /* Ensures table background is white */
+  border-collapse: collapse; /* Collapses borders between cells */
+}
+
+th,
+td {
+  padding: 15px; /* Increases padding for better readability */
+  border: 1px solid #dee2e6; /* Softens border color for a lighter look */
+  text-align: left; /* Aligns text to the left; adjust as needed */
+}
+
+th {
+  background-color: #f8f9fa; /* Subtle background color for headers */
+  color: #333; /* Ensures text color is dark for contrast */
+  font-weight: bold; /* Makes header text bold */
+}
+.btn {
+  padding: 0.5rem 1rem; /* Adjusts padding for a better touch area */
+  font-size: 16px; /* Sets a consistent font size */
+  line-height: 1.5; /* Maintains line height for clarity */
+  border-radius: 0.25rem; /* Soft rounded corners */
+  margin: 5px; /* Adds margin to separate buttons slightly */
+  width: auto; /* Ensures width is auto-adjusting to content */
+  display: inline-block; /* Keeps button inline with text flow */
+  text-decoration: none;
+}
+
+.btn-danger,
+.btn-primary,
+.btn-info {
+  color: #fff; /* Ensures text color is white for readability */
+}
+
+.btn-danger {
+  background-color: #dc3545; /* Specific red for delete buttons */
+}
+
+.btn-primary {
+  background-color: #007bff; /* Specific blue for primary actions */
+}
+
+.btn-info {
+  background-color: #17a2b8; /* Specific teal for info actions */
+}
+.btn-success {
+  background-color: #3f72af;
+}
+
+.btn:hover {
+  opacity: 0.85; /* Adds hover effect for better user interaction */
+}
+@media (max-width: 768px) {
+  .table,
+  th,
+  td {
+    display: block; /* Converts table to block layout for better scrolling on mobile */
+  }
+
+  .btn {
+    padding: 10px 20px; /* Adjusts button padding for easier interaction on touch devices */
+    width: 100%; /* Full width buttons for easier access */
   }
 }

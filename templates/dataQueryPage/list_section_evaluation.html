@@ -3,38 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <title>Sections for {{ year }} {{ semester }}</title>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    />
-    <style>
-      .footer {
-        color: gray;
-        padding: 10px 0;
-        text-align: center;
-        margin-top: 40px;
-      }
-      table {
-        width: 100%;
-        margin-top: 20px;
-      }
-      th,
-      td {
-        padding: 10px;
-        border: 1px solid #ccc;
-      }
-      th {
-        background-color: #f8f9fa;
-      }
-      .action-button {
-        margin-right: 5px;
-      }
-      .header-spacing {
-        margin-bottom: 50px; /* Adjust this value as needed */
-      }
-    </style>
+    <link rel="stylesheet" href="/static/styles.css" />
   </head>
   <body>
+    {% include 'navbar.html' %}
     <h1 class="text-center header-spacing">
       Sections for {{ year }} {{ semester }}
     </h1>

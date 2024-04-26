@@ -105,28 +105,31 @@ def list_evaluation():
 #         return jsonify({"error": str(e)}), 500
 
 
-@evaluation_routes.route('/edit', methods=['POST'])
-def edit_evaluation():
-    data = request.json
-    evaluation_id = data['evaluation_id']
+@evaluation_routes.route('/edit_evaluation/<int:evaluation_id>')
+def edit_evaluation(evaluation_id):
     evaluation = Evaluations.query.get(evaluation_id)
     if evaluation:
-        # Manually updating each field:
-        evaluation.perform_A = data.get('perform_A', evaluation.perform_A)
-        evaluation.perform_B = data.get('perform_B', evaluation.perform_B)
-        evaluation.perform_C = data.get('perform_C', evaluation.perform_C)
-        evaluation.perform_F = data.get('perform_B', evaluation.perform_F)
-        # Add other fields as necessary
-        db.session.commit()
-        return jsonify({'message': 'Evaluation updated successfully'})
-    return jsonify({'message': 'Evaluation not found'}), 404
+        return render_template('evaluationPage/edit_evaluation.html', evaluation=evaluation)
+    else:
+        return 'Evaluation not found', 404
 
-@evaluation_routes.route('/delete', methods=['DELETE'])
-def delete_evaluation():
-    evaluation_id = request.args.get('evaluation_id')
+
+@evaluation_routes.route('/update_evaluation/<int:evaluation_id>', methods=['POST'])
+def update_evaluation(evaluation_id):
     evaluation = Evaluations.query.get(evaluation_id)
     if evaluation:
-        db.session.delete(evaluation)
+        # 更新所有可能的字段
+        evaluation.degree_name = request.form['degree_name']
+        evaluation.degree_level = request.form['degree_level']
+        evaluation.assess_method = request.form['assess_method']
+        evaluation.perform_A = request.form['perform_A']
+        evaluation.perform_B = request.form['perform_B']
+        evaluation.perform_C = request.form['perform_C']
+        evaluation.perform_F = request.form['perform_F']
+        evaluation.improve_sugs = request.form['improve_sugs']
+
         db.session.commit()
-        return jsonify({'message': 'Evaluation deleted successfully'})
-    return jsonify({'message': 'Evaluation not found'}), 404
+        # 重定向到更新成功页面
+        return render_template('evaluationPage/update_success.html')
+    else:
+        return 'Evaluation not found', 404

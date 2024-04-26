@@ -4,23 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Instructor Sections</title>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    />
-    <style>
-      .container {
-        margin-top: 20px;
-      }
-    </style>
+    <link rel="stylesheet" href="/static/styles.css" />
   </head>
   <body>
+    {% include 'navbar.html' %}
     <div class="container">
       <h1>Sections Taught by {{ instructor_name }}</h1>
       <div class="mt-3">
         <a
           href="{{ url_for('query_instructor_routes.query_form') }}"
-          class="btn btn-primary"
+          class="button"
           >Back to Search</a
         >
       </div>

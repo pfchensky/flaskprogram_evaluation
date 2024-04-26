@@ -30,7 +30,3 @@ def init_all_routes(app):
     app.register_blueprint(query_instructor_routes, url_prefix='/query')
     app.register_blueprint(query_section_routes, url_prefix='/query')
     app.register_blueprint(query_section_percentage_routes, url_prefix='/query')
-    init_degree_routes(app)
-    init_instructor_routes(app)
-    init_section_routes(app)
-    init_learning_objective_routes(app)

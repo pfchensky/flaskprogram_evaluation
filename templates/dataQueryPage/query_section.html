@@ -3,28 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <title>Select Semester</title>
-    <link
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        padding: 20px;
-      }
-      form {
-        max-width: 300px;
-        margin: auto;
-        margin-top: 50px;
-      }
-      .footer {
-        color: gray;
-        padding: 10px 0;
-        text-align: center;
-        margin-top: 40px;
-      }
-    </style>
+    <link rel="stylesheet" href="/static/styles.css" />
   </head>
   <body>
+    {% include 'navbar.html' %}
     <h1 class="text-center header-spacing">Select A Semester</h1>
     <form
       action="{{ url_for('query_section_routes.list_sections_for_term') }}"
