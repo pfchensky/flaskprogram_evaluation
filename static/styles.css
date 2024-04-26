@@ -19,6 +19,11 @@ body {
   z-index: 1000;
   height: 60px;
 }
+h1 {
+  text-align: center;
+  color: #3f72af;
+}
+
 h1.text-center {
   font-size: 40px; /* Example size, adjust as needed */
   color: #3f72af; /* Example color, adjust as needed */
@@ -115,7 +120,7 @@ label {
 input[type="text"],
 button {
   display: block;
-  width: 100%;
+  width: 97%;
   margin-top: 5px;
   padding: 10px;
 }
@@ -142,4 +147,78 @@ button:hover {
   .navbar {
     flex-direction: column;
   }
+}
+
+textarea {
+  width: 97%; /* Ensures that the textarea width matches other input fields */
+  padding: 10px; /* Padding for internal spacing */
+  margin-top: 5px; /* Consistent spacing with other inputs */
+  border-radius: 4px; /* Rounded corners to match other inputs */
+  border: 1px solid #ccc; /* Border to match the styling of text inputs */
+  font-size: 16px; /* Font size for readability, adjust as needed */
+  height: 150px; /* Sets a fixed height for the textarea */
+  resize: vertical; /* Allows the user to resize the textarea vertically */
+}
+
+select {
+  width: 100%; /* Makes the dropdowns full width of their container */
+  padding: 10px; /* Adds some padding inside the dropdowns */
+  margin-top: 5px; /* Adds margin to the top of the dropdowns */
+  margin-bottom: 15px; /* Adds space below the dropdowns */
+  border: 1px solid #ccc; /* Adds a border to the dropdowns with a light grey color */
+  border-radius: 4px; /* Rounds the corners of the dropdowns */
+  font-size: 16px; /* Sets the font size within the dropdowns */
+  background-color: white; /* Sets the background color of the dropdowns */
+  box-sizing: border-box; /* Includes padding and border in the width and height */
+  -webkit-appearance: none; /* Removes default styling specific to WebKit browsers */
+  -moz-appearance: none; /* Removes default styling specific to Mozilla browsers */
+  appearance: none; /* Removes default styling for dropdowns */
+  cursor: pointer; /* Changes the cursor to indicate it's clickable */
+}
+
+/* Style the dropdown arrow */
+select {
+  background-image: url("dropdown-arrow.svg");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px 12px; /* Adjust the size of your icon */
+}
+
+/* To style the focus state of the dropdown */
+select:focus {
+  border-color: #3f72af; /* A darker border color when the dropdown is focused */
+  outline: none; /* Removes the default focus outline */
+}
+/* Styles specific to number input fields */
+input[type="number"] {
+  width: 100%; /* Full width of their container */
+  padding: 10px; /* Padding inside the inputs for space */
+  margin-top: 5px; /* Space to the top of the inputs */
+  margin-bottom: 15px; /* Space below the inputs */
+  border: 1px solid #ccc; /* Light grey border */
+  border-radius: 4px; /* Rounded corners for the inputs */
+  font-size: 16px; /* Size of the text inside the inputs */
+  line-height: 1.5; /* The height of each line of text */
+  background-color: white; /* Background color of the inputs */
+  box-sizing: border-box; /* Padding and border included in the width and height */
+  cursor: text; /* Changes the cursor to indicate text can be entered */
+}
+
+/* Style for focus state to improve visibility when the input is active */
+input[type="number"]:focus {
+  border-color: #3f72af; /* A darker border color for focus */
+  outline: none; /* Remove default focus outline */
+}
+table {
+  width: 100%;
+  margin-top: 20px;
+  background-color: white; /* This will set the background color of the table to white */
+}
+th {
+  background-color: white; /* This will set the background color of the table headers to white */
+}
+th,
+td {
+  padding: 10px;
+  border: 1px solid #ccc;
 }
