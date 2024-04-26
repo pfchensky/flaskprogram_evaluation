@@ -18,6 +18,7 @@ body {
   align-items: center;
   z-index: 1000;
   height: 60px;
+  text-decoration: none;
 }
 h1 {
   text-align: center;
@@ -209,16 +210,69 @@ input[type="number"]:focus {
   border-color: #3f72af; /* A darker border color for focus */
   outline: none; /* Remove default focus outline */
 }
-table {
+.table {
   width: 100%;
   margin-top: 20px;
-  background-color: white; /* This will set the background color of the table to white */
+  background-color: white; /* Ensures table background is white */
+  border-collapse: collapse; /* Collapses borders between cells */
 }
-th {
-  background-color: white; /* This will set the background color of the table headers to white */
-}
+
 th,
 td {
-  padding: 10px;
-  border: 1px solid #ccc;
+  padding: 15px; /* Increases padding for better readability */
+  border: 1px solid #dee2e6; /* Softens border color for a lighter look */
+  text-align: left; /* Aligns text to the left; adjust as needed */
+}
+
+th {
+  background-color: #f8f9fa; /* Subtle background color for headers */
+  color: #333; /* Ensures text color is dark for contrast */
+  font-weight: bold; /* Makes header text bold */
+}
+.btn {
+  padding: 0.5rem 1rem; /* Adjusts padding for a better touch area */
+  font-size: 16px; /* Sets a consistent font size */
+  line-height: 1.5; /* Maintains line height for clarity */
+  border-radius: 0.25rem; /* Soft rounded corners */
+  margin: 5px; /* Adds margin to separate buttons slightly */
+  width: auto; /* Ensures width is auto-adjusting to content */
+  display: inline-block; /* Keeps button inline with text flow */
+  text-decoration: none;
+}
+
+.btn-danger,
+.btn-primary,
+.btn-info {
+  color: #fff; /* Ensures text color is white for readability */
+}
+
+.btn-danger {
+  background-color: #dc3545; /* Specific red for delete buttons */
+}
+
+.btn-primary {
+  background-color: #007bff; /* Specific blue for primary actions */
+}
+
+.btn-info {
+  background-color: #17a2b8; /* Specific teal for info actions */
+}
+.btn-success {
+  background-color: #3f72af;
+}
+
+.btn:hover {
+  opacity: 0.85; /* Adds hover effect for better user interaction */
+}
+@media (max-width: 768px) {
+  .table,
+  th,
+  td {
+    display: block; /* Converts table to block layout for better scrolling on mobile */
+  }
+
+  .btn {
+    padding: 10px 20px; /* Adjusts button padding for easier interaction on touch devices */
+    width: 100%; /* Full width buttons for easier access */
+  }
 }
