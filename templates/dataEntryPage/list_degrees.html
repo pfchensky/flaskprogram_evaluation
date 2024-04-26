@@ -3,7 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <title>List Degrees</title>
-    <link rel="stylesheet" href="/static/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      .footer {
+        color: gray;
+        padding: 10px 0;
+        text-align: center;
+        margin-top: 40px;
+      }
+      table {
+        width: 100%;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        padding: 10px;
+        border: 1px solid #ccc;
+      }
+      th {
+        background-color: #f8f9fa;
+      }
+      .action-button {
+        margin-right: 5px;
+      }
+      .header-spacing {
+        margin-bottom: 50px; /* Adjust this value as needed */
+      }
+    </style>
   </head>
   <body>
     {% include 'navbar.html' %}
