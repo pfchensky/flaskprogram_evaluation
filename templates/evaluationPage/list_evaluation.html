@@ -9,42 +9,46 @@
   <body>
     {% include 'navbar.html' %}
     <div class="container mt-4">
-      <h1>Evaluations List</h1>
-      <table class="table table-bordered">
-        <thead class="table-dark">
-          <tr>
-            <th>Evaluation ID</th>
-            <th>Course</th>
-            <th>Degree</th>
-            <th>Level</th>
-            <th>Assessment Method</th>
-            <th>Score A</th>
-            <th>Score B</th>
-            <th>Score C</th>
-            <th>Score F</th>
-            <th>Improvement Suggestions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for evaluation in evaluations %}
-          <tr>
-            <td>{{ evaluation.evaluation_id }}</td>
-            <td>{{ evaluation.section_id }}</td>
-            <td>{{ evaluation.degree_name }}</td>
-            <td>{{ evaluation.degree_level }}</td>
-            <td>{{ evaluation.assess_method }}</td>
-            <td>{{ evaluation.perform_A }}</td>
-            <td>{{ evaluation.perform_B }}</td>
-            <td>{{ evaluation.perform_C }}</td>
-            <td>{{ evaluation.perform_F }}</td>
-            <td>{{ evaluation.improve_sugs }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      {% if evaluations|length == 0 %}
-      <div class="alert alert-info">No evaluations found.</div>
-      {% endif %}
+        <h1>Evaluations List</h1>
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Evaluation ID</th>
+                    <th>Section ID</th>
+                    <th>Degree Name</th>
+                    <th>Degree Level</th>
+                    <th>Assessment Method</th>
+                    <th>Performance A</th>
+                    <th>Performance B</th>
+                    <th>Performance C</th>
+                    <th>Performance F</th>
+                    <th>Improvement Suggestions</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for evaluation in evaluations %}
+                <tr>
+                    <td>{{ evaluation.evaluation_id }}</td>
+                    <td>{{ evaluation.section_id }}</td>
+                    <td>{{ evaluation.degree_name }}</td>
+                    <td>{{ evaluation.degree_level }}</td>
+                    <td>{{ evaluation.assess_method }}</td>
+                    <td>{{ evaluation.perform_A }}</td>
+                    <td>{{ evaluation.perform_B }}</td>
+                    <td>{{ evaluation.perform_C }}</td>
+                    <td>{{ evaluation.perform_F }}</td>
+                    <td>{{ evaluation.improve_sugs }}</td>
+                    <td>
+                        <a href="/evaluation/edit_evaluation/{{ evaluation.evaluation_id }}" class="btn btn-primary btn-sm">Edit</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if evaluations|length == 0 %}
+            <div class="alert alert-info">No evaluations found.</div>
+        {% endif %}
     </div>
   </body>
 </html>
