@@ -6,22 +6,22 @@
     <title>Edit Evaluation</title>
     <link rel="stylesheet" href="/static/styles.css" />
 </head>
-  <body>
+<body>
     {% include 'navbar.html' %}
     <div class="container mt-4">
         <h1>Edit Evaluation</h1>
         <form action="/evaluation/update_evaluation/{{ evaluation.evaluation_id }}" method="post">
             <div class="mb-3">
                 <label for="sectionID" class="form-label">Section ID</label>
-                <input type="number" class="form-control" id="sectionID" name="section_id" value="{{ evaluation.section_id }}">
+                <input type="number" class="form-control" id="sectionID" name="section_id" value="{{ evaluation.section_id }}" readonly>
             </div>
             <div class="mb-3">
                 <label for="degreeName" class="form-label">Degree Name</label>
-                <input type="text" class="form-control" id="degreeName" name="degree_name" value="{{ evaluation.degree_name }}">
+                <input type="text" class="form-control" id="degreeName" name="degree_name" value="{{ evaluation.degree_name }}" readonly>
             </div>
             <div class="mb-3">
                 <label for="degreeLevel" class="form-label">Degree Level</label>
-                <input type="text" class="form-control" id="degreeLevel" name="degree_level" value="{{ evaluation.degree_level }}">
+                <input type="text" class="form-control" id="degreeLevel" name="degree_level" value="{{ evaluation.degree_level }}" readonly>
             </div>
             <div class="mb-3">
                 <label for="assessMethod" class="form-label">Assessment Method</label>
