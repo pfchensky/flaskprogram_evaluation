@@ -10,7 +10,14 @@
     <h1 class="text-center">Add Course</h1>
     <form action="{{ url_for('add_course') }}" method="post">
       <label for="course_number">Course number:</label>
-      <input type="text" id="course_number" name="course_number" required />
+      <input
+        type="text"
+        id="course_number"
+        name="course_number"
+        required
+        pattern="[A-Za-z]{2}[0-9]{3}"
+        title="Course ID should be two letters followed by three numbers."
+      />
       <label for="name">Name:</label>
       <input type="text" id="name" name="name" required />
 
