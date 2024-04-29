@@ -5,28 +5,68 @@
     <title>Course Details</title>
     <link rel="stylesheet" href="/static/styles.css" />
   </head>
+  <style>
+    .container {
+      max-width: 960px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+
+    .card {
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      padding: 10px;
+    }
+
+    .card-header {
+      background-color: #e9e9e9;
+      border-bottom: 1px solid #ddd;
+      padding: 10px 15px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 5px 5px 0 0;
+    }
+  </style>
   <body>
     {% include 'navbar.html' %}
     <div class="container">
       <h1>Course Details</h1>
+
+      <!-- Course Information Table -->
       <div class="card mb-3">
         <div class="card-header">Course Information</div>
-        <div class="card-body">
-          <h5 class="card-title">{{ course.name }} ({{ course.course_id }})</h5>
-        </div>
+        <table class="table">
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <td>{{ course.name }}</td>
+            </tr>
+            <tr>
+              <th>Course ID</th>
+              <td>{{ course.course_id }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
+      <!-- Associated Degrees Table -->
       <div class="card mb-3">
         <div class="card-header">Associated Degrees</div>
-        <ul class="list-group list-group-flush">
-          {% for degree in degrees %}
-          <li class="list-group-item">
-            {{ degree.name }} - {{ degree.level }}
-          </li>
-          {% endfor %}
-        </ul>
+        <table class="table">
+          <tbody>
+            {% for degree in degrees %}
+            <tr>
+              <td>{{ degree.name }}</td>
+              <td>{{ degree.level }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
 
+      <!-- Learning Objectives Table -->
       <div class="card mb-3">
         <div
           class="card-header d-flex justify-content-between align-items-center"
@@ -38,18 +78,23 @@
             >Add Learning Objective</a
           >
         </div>
-        <ul class="list-group list-group-flush">
-          {% for objective in objectives %}
-          <li class="list-group-item">
-            {{ objective.title }}: {{ objective.description }}
-            <a
-              href="{{ url_for('edit_learning_objective', learningObjective_id=objective.learningObjective_id) }}"
-              class="btn btn-primary action-button"
-              >Edit</a
-            >
-          </li>
-          {% endfor %}
-        </ul>
+        <table class="table">
+          <tbody>
+            {% for objective in objectives %}
+            <tr>
+              <td>{{ objective.title }}</td>
+              <td>{{ objective.description }}</td>
+              <td>
+                <a
+                  href="{{ url_for('edit_learning_objective', learningObjective_id=objective.learningObjective_id) }}"
+                  class="btn btn-primary action-button"
+                  >Edit</a
+                >
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
 
       <a href="{{ url_for('list_courses') }}" class="btn btn-primary mt-3"
