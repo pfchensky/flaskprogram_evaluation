@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>No Evaluations Found</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    {% include 'navbar.html' %}
+    <div class="container">
+      <h1>No Evaluations Found</h1>
+      <p>There are currently no evaluations for this section or course.</p>
+      <a
+        href="{{ url_for('evaluation_routes.query_form') }}"
+        class="btn btn-primary"
+        >Back to Search</a
+      >
+      <a
+        href="{{ url_for('evaluation_routes.enter_evaluation', section_id=section_id, course_id=course_id) }}"
+        class="btn btn-success mt-3"
+        >Enter Evaluations</a
+      >
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <footer class="footer">
+      <p>University Program Evaluation System © 2024</p>
+    </footer>
+  </body>
+</html>

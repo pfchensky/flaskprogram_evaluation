@@ -8,7 +8,16 @@ from sqlalchemy.exc import SQLAlchemyError
 def init_section_routes(app):
     @app.route('/sections')
     def list_sections():
-        sections = Sections.query.all()
+        sections = db.session.query(
+            Sections.section_id,
+            Sections.year,
+            Sections.semester,
+            Sections.enrollment_count,
+            Sections.instructor_id,
+            Courses.course_id,
+            Courses.name.label('course_name')  # Aliasing the course name for easier access in the template
+        ).join(Courses, Sections.course_id == Courses.course_id).all()
+
         return render_template('dataEntryPage/list_sections.html', sections=sections)
 
     @app.route('/add_section', methods=['GET', 'POST'])

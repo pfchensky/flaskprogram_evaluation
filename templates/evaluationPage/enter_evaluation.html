@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Enter Evaluation</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    {% include 'navbar.html' %}
+    <div class="container">
+      <h1>Enter Evaluation for Section {{ course_id }}</h1>
+      <form
+        action="{{ url_for('evaluation_routes.save_evaluation', section_id=section_id, course_id=course_id) }}"
+        method="post"
+      >
+        <!-- Assessment Method Dropdown -->
+        <div class="mb-3">
+          <label for="assessmentMethod" class="form-label"
+            >Assessment Method</label
+          >
+          <select
+            id="assessmentMethod"
+            name="assess_method"
+            class="form-control"
+            required
+          >
+            <option value="Homework">Homework</option>
+            <option value="Project">Project</option>
+            <option value="Quiz">Quiz</option>
+            <option value="Oral Presentation">Oral Presentation</option>
+            <option value="Report">Report</option>
+            <option value="Mid-term">Mid-term</option>
+            <option value="Final Exam">Final Exam</option>
+            <option value="others">Others</option>
+          </select>
+        </div>
+
+        <!-- Grade Inputs -->
+        <div class="mb-3">
+          <label for="performanceA" class="form-label">Grade A</label>
+          <input
+            type="number"
+            class="form-control"
+            id="performanceA"
+            name="perform_A"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="performanceB" class="form-label">Grade B</label>
+          <input
+            type="number"
+            class="form-control"
+            id="performanceB"
+            name="perform_B"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="performanceC" class="form-label">Grade C</label>
+          <input
+            type="number"
+            class="form-control"
+            id="performanceC"
+            name="perform_C"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="performanceF" class="form-label">Grade F</label>
+          <input
+            type="number"
+            class="form-control"
+            id="performanceF"
+            name="perform_F"
+            required
+          />
+        </div>
+
+        <!-- Improvement Suggestions -->
+        <div class="mb-3">
+          <label for="improve_sugs" class="form-label"
+            >Improvement Suggestions</label
+          >
+          <textarea
+            class="form-control"
+            id="improve_sugs"
+            name="improve_sugs"
+          ></textarea>
+        </div>
+
+        <!-- Additional Hidden or Other Fields (Example) -->
+        <input type="hidden" name="degree_name" value="YourDegreeName" />
+        <input type="hidden" name="degree_level" value="YourDegreeLevel" />
+        <input
+          type="hidden"
+          name="learningObjective_id"
+          value="YourObjectiveID"
+        />
+
+        <!-- Submission Button -->
+        <button type="submit" class="btn btn-primary">Submit Evaluation</button>
+      </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <footer class="footer">
+      <p>University Program Evaluation System © 2024</p>
+    </footer>
+  </body>
+</html>
