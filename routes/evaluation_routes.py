@@ -105,44 +105,36 @@ def list_evaluation():
 #         return jsonify({"error": str(e)}), 500
 
 
-@evaluation_routes.route('/edit_evaluation/<int:evaluation_id>')
-def edit_evaluation(evaluation_id):
-    evaluation = Evaluations.query.get(evaluation_id)
-    if evaluation:
-        return render_template('evaluationPage/edit_evaluation.html', evaluation=evaluation)
-    else:
-        return 'Evaluation not found', 404
-
-# @evaluation_routes.route('/edit-evaluation/<int:evaluation_id>', methods=['GET', 'POST'])
+# @evaluation_routes.route('/edit_evaluation/<int:evaluation_id>')
 # def edit_evaluation(evaluation_id):
-#     # 查询要编辑的评估记录
-#     evaluation = Evaluations.query.get_or_404(evaluation_id)
+#     evaluation = Evaluations.query.get(evaluation_id)
+#     if evaluation:
+#         return render_template('evaluationPage/edit_evaluation.html', evaluation=evaluation)
+#     else:
+#         return 'Evaluation not found', 404
 
-#     if request.method == 'POST':
-#         # 从表单中获取用户编辑的评估信息
-#         assessment_method = request.form.get('assessment_method')
-#         performance_A = request.form.get('performance_A')
-#         performance_B = request.form.get('performance_B')
-#         performance_C = request.form.get('performance_C')
-#         performance_F = request.form.get('performance_F')
-#         improvement_suggestions = request.form.get('improvement_suggestions')
+@evaluation_routes.route('/edit_evaluation/<int:evaluation_id>', methods=['GET', 'POST'])
+def edit_evaluation(evaluation_id):
+    evaluation = Evaluations.query.get_or_404(evaluation_id)  # Get the existing evaluation or 404
+    if request.method == 'POST':
+        # Update evaluation fields from the form
+        evaluation.assess_method = request.form.get('assessment_method')
+        evaluation.perform_A = request.form.get('performance_A')
+        evaluation.perform_B = request.form.get('performance_B')
+        evaluation.perform_C = request.form.get('performance_C')
+        evaluation.perform_F = request.form.get('performance_F')
+        evaluation.improve_sugs = request.form.get('improvement_suggestions')
+        
+        # Additional fields that may need to be updated
+        evaluation.learningObjective_id = request.form.get('learningObjective_id', type=int)
+        evaluation.degree_name = request.form.get('degree_name')
+        evaluation.degree_level = request.form.get('degree_level')
 
-#         # 更新评估记录的信息
-#         evaluation.assessment_method = assessment_method
-#         evaluation.performance_A = performance_A
-#         evaluation.performance_B = performance_B
-#         evaluation.performance_C = performance_C
-#         evaluation.performance_F = performance_F
-#         evaluation.improvement_suggestions = improvement_suggestions
-
-#         # 保存到数据库
-#         db.session.commit()
-
-#         # 重定向到评估详情页面或其他页面
-#         return redirect(url_for('evaluation_routes.evaluations_for_section', section_id=evaluation.section_id, course_id=evaluation.course_id))
-
-#     # 渲染编辑评估的表单页面，并将评估信息传递给模板
-#     return render_template('evaluationPage/evaluation_details.html', evaluations=evaluation, evaluation_id=evaluation_id)
+        db.session.commit()
+        return redirect(url_for('evaluation_routes.evaluations_for_section', section_id=evaluation.section_id, course_id=evaluation.course_id))
+    else:
+        # Pre-fill form with existing evaluation data
+        return render_template('evaluationPage/edit_evaluation.html', evaluation=evaluation)
 
 
 @evaluation_routes.route('/update_evaluation/<int:evaluation_id>', methods=['POST'])
@@ -186,7 +178,7 @@ def evaluations_for_section(section_id, course_id):
 
     # If no evaluations are found, return an empty list
     if not evaluations:
-        return jsonify([])
+        return render_template('evaluationPage/no_evaluations.html', section_id=section_id, course_id=course_id)
 
     # Convert evaluations to a list of dicts to jsonify
     evaluations_list = []
@@ -208,3 +200,44 @@ def evaluations_for_section(section_id, course_id):
     # Return the results in JSON format
     # return jsonify(evaluations_list)
     return render_template('evaluationPage/evaluation_details.html', evaluations=evaluations_list)
+@evaluation_routes.route('/enter_evaluation/<int:section_id>/<string:course_id>')
+def enter_evaluation(section_id, course_id):
+    return render_template('evaluationPage/enter_evaluation.html', section_id=section_id, course_id=course_id)
+
+@evaluation_routes.route('/save_evaluation/<int:section_id>/<string:course_id>', methods=['POST'])
+def save_evaluation(section_id, course_id):
+    try:
+        # Retrieve additional form data as needed
+        assess_method = request.form['assess_method']
+        perform_A = request.form['perform_A']
+        perform_B = request.form['perform_B']
+        perform_C = request.form['perform_C']
+        perform_F = request.form['perform_F']
+        improve_sugs = request.form['improve_sugs']
+        # Additional fields to match model (if needed from form)
+        learningObjective_id = request.form.get('learningObjective_id', type=int)  # Example of getting int with default
+        degree_name = request.form.get('degree_name', '')  # Assuming this is sent via form, default to empty string if not
+        degree_level = request.form.get('degree_level', '')  # Same assumption as degree_name
+
+        # Create a new Evaluations object with proper fields
+        new_evaluation = Evaluations(
+            section_id=section_id,
+            course_id=course_id,
+            learningObjective_id=learningObjective_id,  # Assuming this comes from the form
+            degree_name=degree_name,
+            degree_level=degree_level,
+            assess_method=assess_method,
+            perform_A=perform_A,
+            perform_B=perform_B,
+            perform_C=perform_C,
+            perform_F=perform_F,
+            improve_sugs=improve_sugs
+        )
+
+        db.session.add(new_evaluation)
+        db.session.commit()
+
+        # Redirecting to the evaluations list for the section
+        return redirect(url_for('evaluation_routes.evaluations_for_section', section_id=section_id, course_id=course_id))
+    except Exception as e:
+        return str(e), 400
