@@ -16,9 +16,9 @@
       <div class="table-responsive">
         <table class="table table-bordered">
           <tr>
-            <th>Evaluation Attribute</th>
+            <td>Evaluation ID</td>
             {% for eval in evaluations %}
-            <th>Evaluation {{ loop.index }}</th>
+            <td>{{ eval.evaluation_id }}</td>
             {% endfor %}
           </tr>
           <tr>

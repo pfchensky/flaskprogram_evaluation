@@ -113,6 +113,37 @@ def edit_evaluation(evaluation_id):
     else:
         return 'Evaluation not found', 404
 
+# @evaluation_routes.route('/edit-evaluation/<int:evaluation_id>', methods=['GET', 'POST'])
+# def edit_evaluation(evaluation_id):
+#     # 查询要编辑的评估记录
+#     evaluation = Evaluations.query.get_or_404(evaluation_id)
+
+#     if request.method == 'POST':
+#         # 从表单中获取用户编辑的评估信息
+#         assessment_method = request.form.get('assessment_method')
+#         performance_A = request.form.get('performance_A')
+#         performance_B = request.form.get('performance_B')
+#         performance_C = request.form.get('performance_C')
+#         performance_F = request.form.get('performance_F')
+#         improvement_suggestions = request.form.get('improvement_suggestions')
+
+#         # 更新评估记录的信息
+#         evaluation.assessment_method = assessment_method
+#         evaluation.performance_A = performance_A
+#         evaluation.performance_B = performance_B
+#         evaluation.performance_C = performance_C
+#         evaluation.performance_F = performance_F
+#         evaluation.improvement_suggestions = improvement_suggestions
+
+#         # 保存到数据库
+#         db.session.commit()
+
+#         # 重定向到评估详情页面或其他页面
+#         return redirect(url_for('evaluation_routes.evaluations_for_section', section_id=evaluation.section_id, course_id=evaluation.course_id))
+
+#     # 渲染编辑评估的表单页面，并将评估信息传递给模板
+#     return render_template('evaluationPage/evaluation_details.html', evaluations=evaluation, evaluation_id=evaluation_id)
+
 
 @evaluation_routes.route('/update_evaluation/<int:evaluation_id>', methods=['POST'])
 def update_evaluation(evaluation_id):
