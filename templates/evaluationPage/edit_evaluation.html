@@ -10,9 +10,11 @@
     {% include 'navbar.html' %}
     <div class="container">
         <h1 class="mt-5">Edit Evaluation</h1>
-        <form action="/evaluation/edit/{{ evaluation_id }}" method="post">
+        <!-- Correct action URL and include method POST -->
+        <form action="{{ url_for('evaluation_routes.edit_evaluation', evaluation_id=evaluation.evaluation_id) }}" method="post">
             <div class="table-responsive">
                 <table class="table table-bordered">
+                    <!-- Display evaluation details in the form for editing -->
                     <tr>
                         <td>Evaluation ID</td>
                         <td>{{ evaluation.evaluation_id }}</td>
@@ -56,21 +58,4 @@
                         <td><input type="number" class="form-control" name="performance_F" value="{{ evaluation.performance_F }}"></td>
                     </tr>
                     <tr>
-                        <td>Improvement Suggestions</td>
-                        <td><textarea class="form-control" name="improvement_suggestions" rows="3">{{ evaluation.improvement_suggestions }}</textarea></td>
-                    </tr>
-                </table>
-            </div>
-            <button type="submit" class="btn btn-primary">Update</button>
-        </form>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <footer class="footer mt-5 py-3 bg-light">
-        <div class="container">
-            <span class="text-muted">University Program Evaluation System © 2024</span>
-        </div>
-    </footer>
-</body>
-</html>
+                       
