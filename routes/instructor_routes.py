@@ -1,4 +1,4 @@
-from flask import jsonify, render_template, request, redirect, url_for
+from flask import flash, jsonify, render_template, request, redirect, url_for
 from models import Courses, Instructors, Sections
 from database import db
 
@@ -17,14 +17,23 @@ def init_instructor_routes(app):
 
     @app.route('/add_instructor', methods=['POST'])
     def add_instructor():
-        # 从表单获取数据
+    # 从表单获取数据
+        instructor_id = request.form.get('instructorId', type=int)  # Ensure this is retrieving as int and matches the form input name
         name = request.form['name']
-        # 创建新教师对象
-        new_instructor = Instructors(name=name)
-        # 添加教师到数据库
+        
+        # Optional: Check if an instructor with the given ID already exists
+        existing_instructor = Instructors.query.get(instructor_id)
+        if existing_instructor:
+            # Handle the case where instructor already exists
+            flash('An instructor with this ID already exists.', 'error')
+            return redirect(url_for('add_instructor_form'))
+
+        # Create new instructor object with ID
+        new_instructor = Instructors(instructor_id=instructor_id, name=name)  # Use instructor_id, which is the correct model field
         db.session.add(new_instructor)
         db.session.commit()
-        # 重定向到教师列表页面
+        flash('Instructor added successfully!', 'success')
+        # Redirect to the instructor list page
         return redirect(url_for('list_instructors'))
 
     @app.route('/delete_instructor/<int:instructor_id>', methods=['POST'])

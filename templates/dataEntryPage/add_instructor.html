@@ -9,11 +9,27 @@
     {% include 'navbar.html' %}
     <h1 class="text-center">Add Instructor</h1>
     <form action="{{ url_for('add_instructor') }}" method="post">
+      <label for="instructorId">Instructor ID:</label>
+      <input
+        type="number"
+        id="instructorId"
+        name="instructorId"
+        min="1"
+        oninput="validateInteger(this)"
+        required
+      />
       <label for="name">Name:</label>
       <input type="text" id="name" name="name" required />
 
       <button type="submit">Add Instructor</button>
     </form>
+    <script>
+      function validateInteger(input) {
+        if (input.value.includes(".")) {
+          input.value = Math.floor(input.value);
+        }
+      }
+    </script>
 
     <footer class="footer">
       <p>University Program Evaluation System © 2024</p>
