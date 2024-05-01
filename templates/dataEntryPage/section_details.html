@@ -51,6 +51,11 @@
       <a href="{{ url_for('list_sections') }}" class="btn btn-primary mt-3"
         >Back to Sections</a
       >
+      <a
+        href="{{ url_for('evaluation_routes.evaluations_for_section', section_id=section.section_id, course_id=section.course_id) }}"
+        class="btn btn-primary mt-3"
+        >View Evaluation of section {{ section.section_id }}</a
+      >
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Evaluation Details</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    {% include 'navbar.html' %}
+    <div class="container">
+      <h1 class="mt-5">Evaluation Details</h1>
+      {% if evaluations %}
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <tr>
+            <th>Evaluation Attribute</th>
+            {% for eval in evaluations %}
+            <th>Evaluation {{ loop.index }}</th>
+            {% endfor %}
+          </tr>
+          <tr>
+            <td>Course ID</td>
+            {% for eval in evaluations %}
+            <td>{{ eval.course_id }}</td>
+            {% endfor %}
+          </tr>
+          <tr>
+            <td>Course Name</td>
+            {% for eval in evaluations %}
+            <td>{{ eval.course_name }}</td>
+            {% endfor %}
+          </tr>
+          <tr>
+            <td>Section ID</td>
+            {% for eval in evaluations %}
+            <td>{{ eval.section_id }}</td>
+            {% endfor %}
+          </tr>
+          <tr>
+            <td>Assessment Method</td>
+            {% for eval in evaluations %}
+            <td>{{ eval.assessment_method }}</td>
+            {% endfor %}
+          </tr>
+          <tr>
+            <td>Grade A</td>
+            {% for eval in evaluations %}
+            <td>{{ eval.performance_A }}</td>
+            {% endfor %}
+          </tr>
+          <tr>
+            <td>Grade B</td>
+            {% for eval in evaluations %}
+            <td>{{ eval.performance_B }}</td>
+            {% endfor %}
+          </tr>
+          <tr>
+            <td>Grade C</td>
+            {% for eval in evaluations %}
+            <td>{{ eval.performance_C }}</td>
+            {% endfor %}
+          </tr>
+          <tr>
+            <td>Grade F</td>
+            {% for eval in evaluations %}
+            <td>{{ eval.performance_F }}</td>
+            {% endfor %}
+          </tr>
+          <tr>
+            <td>Improvement Suggestions</td>
+            {% for eval in evaluations %}
+            <td>{{ eval.improvement_suggestions }}</td>
+            {% endfor %}
+          </tr>
+        </table>
+      </div>
+      {% else %}
+      <div class="alert alert-warning" role="alert">
+        No evaluations found for this section.
+      </div>
+      {% endif %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <footer class="footer mt-5 py-3 bg-light">
+      <div class="container">
+        <span class="text-muted"
+          >University Program Evaluation System © 2024</span
+        >
+      </div>
+    </footer>
+  </body>
+</html>

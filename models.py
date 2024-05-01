@@ -42,6 +42,7 @@ class Evaluations(db.Model):
     __tablename__ = 'Evaluations'
     evaluation_id = db.Column(db.Integer, primary_key=True)
     section_id = db.Column(db.Integer, db.ForeignKey('Sections.section_id'))
+    course_id = db.Column(db.String(7), db.ForeignKey('Sections.course_id'))  
     learningObjective_id = db.Column(db.Integer, db.ForeignKey('LearningObjectives.learningObjective_id'))
     degree_name = db.Column(db.String(255))
     degree_level = db.Column(db.String(255))

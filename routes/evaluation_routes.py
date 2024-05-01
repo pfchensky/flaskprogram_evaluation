@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify
-from models import db, Degrees, Instructors, Sections, Evaluations, DegreeCourses
+from models import Courses, db, Degrees, Instructors, Sections, Evaluations, DegreeCourses
 from database import db
 
 evaluation_routes = Blueprint('evaluation_routes', __name__)
@@ -133,3 +133,47 @@ def update_evaluation(evaluation_id):
         return render_template('evaluationPage/update_success.html')
     else:
         return 'Evaluation not found', 404
+
+@evaluation_routes.route('/evaluations-for-section/<int:section_id>/<string:course_id>', methods=['GET'])
+def evaluations_for_section(section_id, course_id):
+    # Query for evaluations associated with a specific section and course
+    evaluations = db.session.query(
+        Evaluations.evaluation_id,
+        Evaluations.assess_method,
+        Evaluations.perform_A,
+        Evaluations.perform_B,
+        Evaluations.perform_C,
+        Evaluations.perform_F,
+        Evaluations.improve_sugs,
+        Courses.course_id.label('course_id'),
+        Courses.name.label('course_name'),
+        Sections.section_id.label('section_id')
+    ).join(Sections, (Evaluations.section_id == Sections.section_id) & (Evaluations.course_id == Sections.course_id))\
+     .join(Courses, Sections.course_id == Courses.course_id)\
+     .filter(Sections.section_id == section_id, Sections.course_id == course_id)\
+     .all()
+
+    # If no evaluations are found, return an empty list
+    if not evaluations:
+        return jsonify([])
+
+    # Convert evaluations to a list of dicts to jsonify
+    evaluations_list = []
+    for eval in evaluations:
+        eval_dict = {
+            'course_id': eval.course_id,
+            'course_name': eval.course_name,
+            'section_id':eval.section_id,
+            'evaluation_id': eval.evaluation_id,
+            'assessment_method': eval.assess_method,
+            'performance_A': eval.perform_A,
+            'performance_B': eval.perform_B,
+            'performance_C': eval.perform_C,
+            'performance_F': eval.perform_F,
+            'improvement_suggestions': eval.improve_sugs
+        }
+        evaluations_list.append(eval_dict)
+
+    # Return the results in JSON format
+    # return jsonify(evaluations_list)
+    return render_template('evaluationPage/evaluation_details.html', evaluations=evaluations_list)
