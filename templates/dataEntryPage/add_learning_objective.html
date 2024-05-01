@@ -2,20 +2,37 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Add Learning Objective</title>
+    <title>Edit Learning Objective</title>
     <link rel="stylesheet" href="/static/styles.css" />
   </head>
   <body>
     {% include 'navbar.html' %}
-    <h1 class="text-center">Add Learning Objective</h1>
+    <h1 class="text-center">Edit Learning Objective</h1>
     <form action="{{ url_for('add_learning_objective') }}" method="post">
+      <label for="learningObjective_id">ID:</label>
+      <input
+        type="text"
+        id="learningObjective_id"
+        name="learningObjective_id"
+        value="{{ objective.learningObjective_id }}"
+        required
+      />
+
       <label for="title">Title:</label>
-      <input type="text" id="title" name="title" required />
+      <input
+        type="text"
+        id="title"
+        name="title"
+        value="{{ objective.title }}"
+        required
+      />
 
       <label for="description">Description:</label>
-      <textarea id="description" name="description" required></textarea>
+      <textarea id="description" name="description" required>
+{{ objective.description }}</textarea
+      >
 
-      <button type="submit">Add Objective</button>
+      <button type="submit">Save Changes</button>
     </form>
 
     <footer class="footer">

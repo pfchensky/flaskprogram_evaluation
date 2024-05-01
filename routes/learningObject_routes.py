@@ -11,14 +11,18 @@ def init_learning_objective_routes(app):
     @app.route('/add_learning_objective', methods=['GET', 'POST'])
     def add_learning_objective():
         if request.method == 'POST':
+            # 获取表单中的字段
+            learningObjective_id = request.form['learningObjective_id']
             title = request.form['title']
             description = request.form['description']
-            new_objective = LearningObjectives(title=title, description=description)
+            # 使用手动输入的ID创建新的LearningObjective对象
+            new_objective = LearningObjectives(learningObjective_id=learningObjective_id, title=title, description=description)
             db.session.add(new_objective)
             db.session.commit()
             return redirect(url_for('list_learning_objectives'))
-
-        return render_template('dataEntryPage/add_learning_objective.html')
+        # 提供一个空的LearningObjective对象作为默认值
+        objective = LearningObjectives()
+        return render_template('dataEntryPage/add_learning_objective.html', objective=objective)
 
     @app.route('/delete_learning_objective/<int:learningObjective_id>', methods=['POST'])
     def delete_learning_objective(learningObjective_id):
@@ -31,6 +35,7 @@ def init_learning_objective_routes(app):
     def edit_learning_objective(learningObjective_id):
         objective = LearningObjectives.query.get_or_404(learningObjective_id)
         if request.method == 'POST':
+            objective.learningObjective_id = request.form['learningObjective_id']
             objective.title = request.form['title']
             objective.description = request.form['description']
             db.session.commit()
