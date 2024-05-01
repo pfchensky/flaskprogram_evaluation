@@ -1,5 +1,5 @@
-from flask import render_template, request, redirect, url_for
-from models import Instructors
+from flask import jsonify, render_template, request, redirect, url_for
+from models import Courses, Instructors, Sections
 from database import db
 
 def init_instructor_routes(app):
@@ -47,3 +47,30 @@ def init_instructor_routes(app):
             return redirect(url_for('list_instructors'))
         # 如果是GET请求，显示编辑表单
         return render_template('dataEntryPage/edit_instructor.html', instructor=instructor)
+
+    @app.route('/sections_by_instructor', methods=['GET'])
+    def sections_by_instructor():
+        instructor_id = request.args.get('instructorId', type=int)
+        if not instructor_id:
+            return "No instructor ID provided", 400
+
+        try:
+            sections = db.session.query(
+                Sections.section_id,
+                Sections.year,
+                Sections.semester,
+                Sections.enrollment_count,
+                Courses.course_id,
+                Courses.name.label('course_name'),
+                Instructors.name.label('instructor_name')
+            ).join(Courses, Sections.course_id == Courses.course_id)\
+            .join(Instructors, Sections.instructor_id == Instructors.instructor_id)\
+            .filter(Sections.instructor_id == instructor_id)\
+            .all()
+
+            if not sections:
+                return render_template('no_sections.html'), 404
+
+            return render_template('sections_by_instructor.html', sections=sections)
+        except Exception as e:
+            return render_template('error.html', error=str(e)), 500
