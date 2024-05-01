@@ -50,7 +50,30 @@
           </tbody>
         </table>
       </div>
-
+      <!-- Couese Section Here -->
+      <div class="card mb-3">
+        <div class="card-header">
+          <span>Sections</span>
+          <a href="{{ url_for('add_section') }}" class="btn btn-success"
+            >Add Section</a
+          >
+        </div>
+        <table class="table" id="sections-table">
+          <thead>
+            <tr>
+              <th>Section ID</th>
+              <th>Year</th>
+              <th>Semester</th>
+              <th>Instructor ID</th>
+              <th>Instructor Name</th>
+              <th>Enrollment Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Data rows will be added here dynamically -->
+          </tbody>
+        </table>
+      </div>
       <!-- Associated Degrees Table -->
       <div class="card mb-3">
         <div class="card-header">Associated Degrees</div>
@@ -109,6 +132,33 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        $.ajax({
+          url: "{{ url_for('course_sections', course_id=course.course_id) }}",
+          type: "GET",
+          success: function (response) {
+            console.log("Received sections:", response); // Log the received response to diagnose issues
+            var tableBody = $("#sections-table tbody");
+            response.forEach(function (section) {
+              var row = `<tr>
+                      <td>${section.section_id}</td>
+                      <td>${section.year}</td>
+                      <td>${section.semester}</td>
+                      <td>${section.instructor_id}</td>
+                      <td>${section.instructor_name}</td>  
+                      <td>${section.enrollment_count}</td>
+                    </tr>`;
+              tableBody.append(row);
+            });
+          },
+          error: function (xhr, status, error) {
+            console.log("Error fetching sections:", error);
+          },
+        });
+      });
+    </script>
 
     <footer class="footer">
       <p>University Program Evaluation System © 2024</p>
