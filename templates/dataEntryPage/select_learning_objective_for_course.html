@@ -7,30 +7,51 @@
   </head>
   <body>
     {% include 'navbar.html' %}
-    <h1 class="text-center">Select Learning Objective to {{ course.name }}</h1>
-    <form
-      action="{{ url_for('select_learning_objective_for_course', course_id=course.course_id) }}"
-      method="post"
-    >
-      <div class="form-group">
-        <label for="learningObjective_id">Select Learning Objective:</label>
-        <select
-          name="learningObjective_id"
-          id="learningObjective_id"
-          class="form-control"
-          required
-        >
-          <option value="">-- Choose an Objective --</option>
-          {% for objective in objectives %}
-          <option value="{{ objective.learningObjective_id }}">
-            {{ objective.title }}
-          </option>
-          {% endfor %}
-        </select>
-      </div>
+    <div class="container">
+      <h1 class="text-center">
+        Select Learning Objective for {{ course.name }}
+      </h1>
 
-      <button type="submit" class="btn btn-success">Add to Course</button>
-    </form>
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %}
+      <div class="alert-messages">
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+      {% endif %} {% endwith %}
+
+      <form
+        action="{{ url_for('select_learning_objective_for_course', course_id=course.course_id) }}"
+        method="post"
+      >
+        <div class="form-group">
+          <label for="learningObjective_id">Select Learning Objective:</label>
+          <select
+            name="learningObjective_id"
+            id="learningObjective_id"
+            class="form-control"
+            required
+          >
+            <option value="">-- Choose an Objective --</option>
+            {% if objectives %} {% for objective in objectives %}
+            <option value="{{ objective.learningObjective_id }}">
+              {{ objective.title }}
+            </option>
+            {% endfor %} {% else %}
+            <option disabled>No available objectives</option>
+            {% endif %}
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Add to Course</button>
+        <a
+          href="{{ url_for('course_details', course_id=course.course_id) }}"
+          class="btn btn-secondary"
+          >Back to Course</a
+        >
+      </form>
+    </div>
 
     <footer class="footer">
       <p>University Program Evaluation System © 2024</p>

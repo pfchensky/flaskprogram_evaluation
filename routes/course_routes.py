@@ -104,25 +104,26 @@ def init_course_routes(app):
     
     @app.route('/select_learning_objective_for_course/<course_id>', methods=['GET', 'POST'])
     def select_learning_objective_for_course(course_id):
-        if request.method == 'POST':
-            # 获取表单中选择的学习目标ID
-            learningObjective_id = request.form.get('learningObjective_id')
-
-            # 创建课程与学习目标的关联
-            course_objective = CourseObjectives(course_id=course_id, learningObjective_id=learningObjective_id)
-
-            try:
-                # 添加课程目标关联到数据库
-                db.session.add(course_objective)
-                db.session.commit()
-
-                flash("Learning objective successfully linked to the course!", 'success')
-                return redirect(url_for('course_details', course_id=course_id))
-            except Exception as e:
-                flash(f"An error occurred while linking learning objective to the course: {str(e)}", 'error')
-                db.session.rollback()
-
-        # 获取所有现有的学习目标
-        objectives = LearningObjectives.query.all()
         course = Courses.query.get_or_404(course_id)
-        return render_template('dataEntryPage/select_learning_objective_for_course.html', course=course, objectives=objectives)
+        if request.method == 'POST':
+            learningObjective_id = request.form.get('learningObjective_id')
+            
+            # Check if the objective is already linked to the course
+            existing_objective = CourseObjectives.query.filter_by(course_id=course_id, learningObjective_id=learningObjective_id).first()
+
+            if existing_objective:
+                flash("This learning objective is already linked to the course.", 'error')
+                return redirect(url_for('select_learning_objective_for_course', course_id=course_id))
+
+            # Create the course-objective link if it does not exist
+            new_course_objective = CourseObjectives(course_id=course_id, learningObjective_id=learningObjective_id)
+            db.session.add(new_course_objective)
+            db.session.commit()
+            flash("Learning objective successfully linked to the course!", 'success')
+            return redirect(url_for('course_details', course_id=course_id))
+
+        # Exclude already linked objectives
+        linked_objectives_ids = {obj.learningObjective_id for obj in CourseObjectives.query.filter_by(course_id=course_id).all()}
+        available_objectives = LearningObjectives.query.filter(LearningObjectives.learningObjective_id.notin_(linked_objectives_ids)).all()
+
+        return render_template('dataEntryPage/select_learning_objective_for_course.html', course=course, objectives=available_objectives)
