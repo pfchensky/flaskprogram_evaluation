@@ -8,7 +8,14 @@
   <body>
     {% include 'navbar.html' %}
     <h1 class="text-center">Add Section</h1>
+    <!-- 显示错误消息 -->
+    {% for error in errors %}
+    <div class="alert alert-danger" role="alert">{{ error }}</div>
+    {% endfor %}
     <form action="{{ url_for('add_section') }}" method="post">
+      <label for="section_id">Section ID:</label>
+      <input type="number" id="section_id" name="section_id" required />
+
       <label for="course_id">Course ID:</label>
       <select id="course_id" name="course_id" required>
         <option value="">Select a Course</option>

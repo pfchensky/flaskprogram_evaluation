@@ -1,6 +1,7 @@
 from flask import Flask
-from database import config_app
+from database import db, config_app
 from routes import init_all_routes
+
 
 def create_app():
     # Create the Flask application instance
@@ -12,6 +13,7 @@ def create_app():
 
     # Configure the application with the database and any other configurations.
     config_app(app)
+    
 
     # Initialize all routes (URLs) that the application will respond to
     init_all_routes(app)

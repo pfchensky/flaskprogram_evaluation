@@ -8,7 +8,7 @@
   <body>
     {% include 'navbar.html' %}
     <h1 class="text-center">Edit Section</h1>
-    <form action="{{ url_for('edit_section', section_id=section.section_id) }}" method="post">
+    <form action="{{ url_for('edit_section', section_id=section.section_id,course_id=section.course_id) }}" method="post">
         <label for="course_id">Course ID:</label>
         <input type="text" id="course_id" name="course_id" value="{{ section.course_id }}" required>
 

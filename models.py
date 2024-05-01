@@ -24,7 +24,7 @@ class Instructors(db.Model):
 class Sections(db.Model):
     __tablename__ = 'Sections'
     section_id = db.Column(db.Integer, primary_key=True)
-    course_id = db.Column(db.String(7), db.ForeignKey('Courses.course_id'))
+    course_id = db.Column(db.String(7), db.ForeignKey('Courses.course_id'), primary_key=True)
     year = db.Column(db.Integer)
     semester = db.Column(db.Enum('Spring', 'Summer', 'Fall'))
     instructor_id = db.Column(db.Integer, db.ForeignKey('Instructors.instructor_id'))
