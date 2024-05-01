@@ -1,5 +1,6 @@
 from flask import flash
 from flask import render_template, request, redirect, url_for
+from pymysql import IntegrityError
 from models import Courses, DegreeCourses, Degrees
 from database import db
 
@@ -63,24 +64,21 @@ def init_degree_routes(app):
                         .all())
         return render_template('dataEntryPage/degree_details.html', degree=degree, degree_courses=degree_courses)
     
+   
     @app.route('/add_course_to_degree/<string:name>/<string:level>', methods=['GET', 'POST'])
     def add_course_to_degree(name, level):
         if request.method == 'POST':
             course_number = request.form['course_number']
-            course_name = request.form['name']
             is_core = request.form['is_core'] == 'true'
 
-            # Instantiate and save the new course
-            new_course = Courses(course_id=course_number, name=course_name)
-            db.session.add(new_course)
+            # Instantiate and save the new degree course
             new_degree_course = DegreeCourses(degree_name=name, degree_level=level, course_number=course_number, is_core=is_core)
             db.session.add(new_degree_course)
             db.session.commit()
             flash('Course added successfully!', 'success')
             return redirect(url_for('view_degree_details', name=name, level=level))
+        
         # Handle GET request
-        return render_template('dataEntryPage/add_course_to_degree.html', degree={'name': name, 'level': level})
-
-
-
-
+        # 获取所有课程
+        all_courses = Courses.query.all()
+        return render_template('dataEntryPage/add_course_to_degree.html', name=name, level=level, courses=all_courses)
