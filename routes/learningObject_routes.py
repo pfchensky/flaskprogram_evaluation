@@ -1,4 +1,5 @@
-from flask import render_template, request, redirect, url_for
+from flask import flash, render_template, request, redirect, url_for
+from pymysql import IntegrityError
 from models import LearningObjectives
 from database import db
 
@@ -26,9 +27,18 @@ def init_learning_objective_routes(app):
 
     @app.route('/delete_learning_objective/<int:learningObjective_id>', methods=['POST'])
     def delete_learning_objective(learningObjective_id):
-        objective = LearningObjectives.query.get_or_404(learningObjective_id)
-        db.session.delete(objective)
-        db.session.commit()
+        try:
+            objective = LearningObjectives.query.get_or_404(learningObjective_id)
+            db.session.delete(objective)
+            db.session.commit()
+            flash("Learning objective successfully deleted.", 'success')
+        except IntegrityError:
+            db.session.rollback()
+            flash("Cannot delete learning objective because it is currently used in courses.", 'error')
+        except Exception as e:
+            db.session.rollback()
+            flash("Failed to delete learning objective, it is currently used in courses.", 'error')
+
         return redirect(url_for('list_learning_objectives'))
 
     @app.route('/edit_learning_objective/<int:learningObjective_id>', methods=['GET', 'POST'])

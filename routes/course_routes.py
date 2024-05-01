@@ -102,6 +102,33 @@ def init_course_routes(app):
         course_name = course.name
         return render_template('dataEntryPage/add_learning_objective_for_course.html', course=course)
     
+    
+    @app.route('/select_learning_objective_for_course/<course_id>', methods=['GET', 'POST'])
+    def select_learning_objective_for_course(course_id):
+        course = Courses.query.get_or_404(course_id)
+        if request.method == 'POST':
+            learningObjective_id = request.form.get('learningObjective_id')
+            
+            # Check if the objective is already linked to the course
+            existing_objective = CourseObjectives.query.filter_by(course_id=course_id, learningObjective_id=learningObjective_id).first()
+
+            if existing_objective:
+                flash("This learning objective is already linked to the course.", 'error')
+                return redirect(url_for('select_learning_objective_for_course', course_id=course_id))
+
+            # Create the course-objective link if it does not exist
+            new_course_objective = CourseObjectives(course_id=course_id, learningObjective_id=learningObjective_id)
+            db.session.add(new_course_objective)
+            db.session.commit()
+            flash("Learning objective successfully linked to the course!", 'success')
+            return redirect(url_for('course_details', course_id=course_id))
+
+        # Exclude already linked objectives
+        linked_objectives_ids = {obj.learningObjective_id for obj in CourseObjectives.query.filter_by(course_id=course_id).all()}
+        available_objectives = LearningObjectives.query.filter(LearningObjectives.learningObjective_id.notin_(linked_objectives_ids)).all()
+
+        return render_template('dataEntryPage/select_learning_objective_for_course.html', course=course, objectives=available_objectives)
+    
 
     @app.route('/course_sections/<string:course_id>', methods=['GET'])
     def course_sections(course_id):
@@ -130,10 +157,12 @@ def init_course_routes(app):
                 'enrollment_count': section.enrollment_count,
                 'course_name': section.course_name,  # Adding course_name to the output
                 'instrutor_name': section.instructor_name
-                
+
             } for section in sections]
 
             return jsonify(sections_data)
         except Exception as e:
             return jsonify({'error': str(e)}), 500
+    
+
 
