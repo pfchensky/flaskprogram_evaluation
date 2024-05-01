@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify
-from models import db, Degrees, Instructors, Sections, Evaluations, DegreeCourses
+from models import Courses, db, Degrees, Instructors, Sections, Evaluations, DegreeCourses
 from database import db
 
 evaluation_routes = Blueprint('evaluation_routes', __name__)
@@ -113,6 +113,37 @@ def edit_evaluation(evaluation_id):
     else:
         return 'Evaluation not found', 404
 
+# @evaluation_routes.route('/edit-evaluation/<int:evaluation_id>', methods=['GET', 'POST'])
+# def edit_evaluation(evaluation_id):
+#     # 查询要编辑的评估记录
+#     evaluation = Evaluations.query.get_or_404(evaluation_id)
+
+#     if request.method == 'POST':
+#         # 从表单中获取用户编辑的评估信息
+#         assessment_method = request.form.get('assessment_method')
+#         performance_A = request.form.get('performance_A')
+#         performance_B = request.form.get('performance_B')
+#         performance_C = request.form.get('performance_C')
+#         performance_F = request.form.get('performance_F')
+#         improvement_suggestions = request.form.get('improvement_suggestions')
+
+#         # 更新评估记录的信息
+#         evaluation.assessment_method = assessment_method
+#         evaluation.performance_A = performance_A
+#         evaluation.performance_B = performance_B
+#         evaluation.performance_C = performance_C
+#         evaluation.performance_F = performance_F
+#         evaluation.improvement_suggestions = improvement_suggestions
+
+#         # 保存到数据库
+#         db.session.commit()
+
+#         # 重定向到评估详情页面或其他页面
+#         return redirect(url_for('evaluation_routes.evaluations_for_section', section_id=evaluation.section_id, course_id=evaluation.course_id))
+
+#     # 渲染编辑评估的表单页面，并将评估信息传递给模板
+#     return render_template('evaluationPage/evaluation_details.html', evaluations=evaluation, evaluation_id=evaluation_id)
+
 
 @evaluation_routes.route('/update_evaluation/<int:evaluation_id>', methods=['POST'])
 def update_evaluation(evaluation_id):
@@ -133,3 +164,47 @@ def update_evaluation(evaluation_id):
         return render_template('evaluationPage/update_success.html')
     else:
         return 'Evaluation not found', 404
+
+@evaluation_routes.route('/evaluations-for-section/<int:section_id>/<string:course_id>', methods=['GET'])
+def evaluations_for_section(section_id, course_id):
+    # Query for evaluations associated with a specific section and course
+    evaluations = db.session.query(
+        Evaluations.evaluation_id,
+        Evaluations.assess_method,
+        Evaluations.perform_A,
+        Evaluations.perform_B,
+        Evaluations.perform_C,
+        Evaluations.perform_F,
+        Evaluations.improve_sugs,
+        Courses.course_id.label('course_id'),
+        Courses.name.label('course_name'),
+        Sections.section_id.label('section_id')
+    ).join(Sections, (Evaluations.section_id == Sections.section_id) & (Evaluations.course_id == Sections.course_id))\
+     .join(Courses, Sections.course_id == Courses.course_id)\
+     .filter(Sections.section_id == section_id, Sections.course_id == course_id)\
+     .all()
+
+    # If no evaluations are found, return an empty list
+    if not evaluations:
+        return jsonify([])
+
+    # Convert evaluations to a list of dicts to jsonify
+    evaluations_list = []
+    for eval in evaluations:
+        eval_dict = {
+            'course_id': eval.course_id,
+            'course_name': eval.course_name,
+            'section_id':eval.section_id,
+            'evaluation_id': eval.evaluation_id,
+            'assessment_method': eval.assess_method,
+            'performance_A': eval.perform_A,
+            'performance_B': eval.perform_B,
+            'performance_C': eval.perform_C,
+            'performance_F': eval.perform_F,
+            'improvement_suggestions': eval.improve_sugs
+        }
+        evaluations_list.append(eval_dict)
+
+    # Return the results in JSON format
+    # return jsonify(evaluations_list)
+    return render_template('evaluationPage/evaluation_details.html', evaluations=evaluations_list)

@@ -14,7 +14,14 @@
     {% endfor %}
     <form action="{{ url_for('add_section') }}" method="post">
       <label for="section_id">Section ID:</label>
-      <input type="number" id="section_id" name="section_id" required />
+      <input
+        type="text"
+        id="section_id"
+        name="section_id"
+        required
+        pattern="^[0-9]{3}$"
+        title="Section ID should be 3 digits"
+      />
 
       <label for="course_id">Course ID:</label>
       <select id="course_id" name="course_id" required>
@@ -51,10 +58,24 @@
         id="enrollment_count"
         name="enrollment_count"
         required
+        min="0"
       />
-
       <button type="submit">Add Section</button>
     </form>
+
+    <script>
+      function validateSectionId() {
+        var sectionIdInput = document.getElementById("section_id");
+        var value = sectionIdInput.value;
+        if (value.length != 3 || value < 100 || value > 999) {
+          sectionIdInput.setCustomValidity(
+            "Section ID must be a three-digit number."
+          );
+        } else {
+          sectionIdInput.setCustomValidity("");
+        }
+      }
+    </script>
 
     <footer class="footer">
       <p>University Program Evaluation System © 2024</p>

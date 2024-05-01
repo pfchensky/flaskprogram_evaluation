@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Section Details</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    {% include 'navbar.html' %}
+    <div class="container">
+      <h1>
+        Section Details for {{section.course_id}}: {{section.course_name}}
+      </h1>
+
+      <!-- Section Information Table -->
+      <div class="card mb-3">
+        <table class="table">
+          <tbody>
+            <tr>
+              <th>Course ID</th>
+              <td>{{ section.course_id }}</td>
+            </tr>
+            <tr>
+              <th>Course Name</th>
+              <td>{{ section.course_name }}</td>
+            </tr>
+            <tr>
+              <th>Section ID</th>
+              <td>{{ section.section_id }}</td>
+            </tr>
+            <tr>
+              <th>Year</th>
+              <td>{{ section.year }}</td>
+            </tr>
+            <tr>
+              <th>Semester</th>
+              <td>{{ section.semester }}</td>
+            </tr>
+            <tr>
+              <th>Instructor Name</th>
+              <td>{{ section.instructor_name }}</td>
+            </tr>
+            <tr>
+              <th>Enrollment Count</th>
+              <td>{{ section.enrollment_count }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <a href="{{ url_for('list_sections') }}" class="btn btn-primary mt-3"
+        >Back to Sections</a
+      >
+      <a
+        href="{{ url_for('evaluation_routes.evaluations_for_section', section_id=section.section_id, course_id=section.course_id) }}"
+        class="btn btn-primary mt-3"
+        >View Evaluation of section {{ section.section_id }}</a
+      >
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <footer class="footer">
+      <p>University Program Evaluation System © 2024</p>
+    </footer>
+  </body>
+</html>
