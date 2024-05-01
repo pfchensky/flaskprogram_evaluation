@@ -1,5 +1,6 @@
+from os import abort
 from sqlite3 import IntegrityError
-from flask import flash, get_flashed_messages
+from flask import flash, get_flashed_messages, jsonify
 from flask import render_template, request, redirect, url_for
 from models import db, Sections, Courses, Instructors
 from sqlalchemy.exc import SQLAlchemyError
@@ -118,3 +119,35 @@ def init_section_routes(app):
     def list_sections_by_instructor(instructor_id):
         sections = Sections.query.filter_by(instructor_id=instructor_id).all()
         return render_template('dataEntryPage/list_sections_by_instructor.html', sections=sections, instructor_id=instructor_id)
+    
+    @app.route('/section-details/<int:section_id>', methods=['GET'])
+    def get_section_details(section_id):
+        # Query the section and its associated instructor
+        section = db.session.query(
+            Sections.section_id,
+            Sections.year,
+            Sections.semester,
+            Instructors.name.label('instructor_name'),
+            Sections.enrollment_count,
+            Courses.course_id.label('course_id'),  # Added course ID to the query
+            Courses.name.label('course_name')     # Added course name to the query
+        ).join(Instructors, Sections.instructor_id == Instructors.instructor_id)\
+        .join(Courses, Sections.course_id == Courses.course_id)\
+        .filter(Sections.section_id == section_id)\
+        .first()
+
+        # If section not found, return an error message
+        if section is None:
+            abort(404, description="Section not found")
+
+        # Return the results in JSON format
+        # return jsonify({
+        #     'section_id': section.section_id,
+        #     'year': section.year,
+        #     'semester': section.semester,
+        #     'instructor_name': section.instructor_name,
+        #     'enrollment_count': section.enrollment_count,
+        #     'course_id': section.course_id,        # Ensure these fields are included in the JSON output
+        #     'course_name': section.course_name
+        # })
+        return render_template('dataEntryPage/section_details.html', section=section)

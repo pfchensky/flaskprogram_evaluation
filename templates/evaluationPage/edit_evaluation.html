@@ -3,56 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Evaluation</title>
-    <link rel="stylesheet" href="/static/styles.css" />
+    <title>Edit Evaluation by ID</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
     {% include 'navbar.html' %}
-    <div class="container mt-4">
-        <h1>Edit Evaluation</h1>
-        <form action="/evaluation/update_evaluation/{{ evaluation.evaluation_id }}" method="post">
-            <div class="mb-3">
-                <label for="sectionID" class="form-label">Section ID</label>
-                <input type="number" class="form-control" id="sectionID" name="section_id" value="{{ evaluation.section_id }}" readonly>
-            </div>
-            <div class="mb-3">
-                <label for="degreeName" class="form-label">Degree Name</label>
-                <input type="text" class="form-control" id="degreeName" name="degree_name" value="{{ evaluation.degree_name }}" readonly>
-            </div>
-            <div class="mb-3">
-                <label for="degreeLevel" class="form-label">Degree Level</label>
-                <input type="text" class="form-control" id="degreeLevel" name="degree_level" value="{{ evaluation.degree_level }}" readonly>
-            </div>
-            <div class="mb-3">
-                <label for="assessMethod" class="form-label">Assessment Method</label>
-                <select class="form-control" id="assessMethod" name="assess_method">
-                    {% for method in ['Homework', 'Project', 'Quiz', 'Oral Presentation', 'Report', 'Mid-term', 'Final Exam', 'others'] %}
-                        <option value="{{ method }}" {% if method == evaluation.assess_method %}selected{% endif %}>{{ method }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="performA" class="form-label">Performance A</label>
-                <input type="number" class="form-control" id="performA" name="perform_A" value="{{ evaluation.perform_A }}">
-            </div>
-            <div class="mb-3">
-                <label for="performB" class="form-label">Performance B</label>
-                <input type="number" class="form-control" id="performB" name="perform_B" value="{{ evaluation.perform_B }}">
-            </div>
-            <div class="mb-3">
-                <label for="performC" class="form-label">Performance C</label>
-                <input type="number" class="form-control" id="performC" name="perform_C" value="{{ evaluation.perform_C }}">
-            </div>
-            <div class="mb-3">
-                <label for="performF" class="form-label">Performance F</label>
-                <input type="number" class="form-control" id="performF" name="perform_F" value="{{ evaluation.perform_F }}">
-            </div>
-            <div class="mb-3">
-                <label for="improveSugs" class="form-label">Improvement Suggestions</label>
-                <textarea class="form-control" id="improveSugs" name="improve_sugs" rows="3">{{ evaluation.improve_sugs }}</textarea>
+    <div class="container">
+        <h1 class="mt-5">Edit Evaluation</h1>
+        <form action="/evaluation/edit/{{ evaluation_id }}" method="post">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tr>
+                        <td>Evaluation ID</td>
+                        <td>{{ evaluation.evaluation_id }}</td>
+                    </tr>
+                    <tr>
+                        <td>Course ID</td>
+                        <td>{{ evaluation.course_id }}</td>
+                    </tr>
+                    <tr>
+                        <td>Course Name</td>
+                        <td>{{ evaluation.course_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Section ID</td>
+                        <td>{{ evaluation.section_id }}</td>
+                    </tr>
+                    <tr>
+                        <td>Assessment Method</td>
+                        <td>
+                            <select class="form-control" name="assessment_method">
+                                {% for method in ['Homework', 'Project', 'Quiz', 'Oral Presentation', 'Report', 'Mid-term', 'Final Exam', 'Others'] %}
+                                    <option value="{{ method }}" {% if method == evaluation.assessment_method %}selected{% endif %}>{{ method }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Grade A</td>
+                        <td><input type="number" class="form-control" name="performance_A" value="{{ evaluation.performance_A }}"></td>
+                    </tr>
+                    <tr>
+                        <td>Grade B</td>
+                        <td><input type="number" class="form-control" name="performance_B" value="{{ evaluation.performance_B }}"></td>
+                    </tr>
+                    <tr>
+                        <td>Grade C</td>
+                        <td><input type="number" class="form-control" name="performance_C" value="{{ evaluation.performance_C }}"></td>
+                    </tr>
+                    <tr>
+                        <td>Grade F</td>
+                        <td><input type="number" class="form-control" name="performance_F" value="{{ evaluation.performance_F }}"></td>
+                    </tr>
+                    <tr>
+                        <td>Improvement Suggestions</td>
+                        <td><textarea class="form-control" name="improvement_suggestions" rows="3">{{ evaluation.improvement_suggestions }}</textarea></td>
+                    </tr>
+                </table>
             </div>
             <button type="submit" class="btn btn-primary">Update</button>
         </form>
     </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <footer class="footer mt-5 py-3 bg-light">
+        <div class="container">
+            <span class="text-muted">University Program Evaluation System © 2024</span>
+        </div>
+    </footer>
 </body>
 </html>

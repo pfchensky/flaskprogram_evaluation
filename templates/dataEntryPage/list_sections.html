@@ -73,6 +73,11 @@
           <td>
             <!-- Actions: Edit and Delete -->
             <a
+              href="{{ url_for('get_section_details', section_id=section.section_id, course_id=section.course_id) }}"
+              class="btn btn-primary action-button"
+              >View Details
+            </a>
+            <a
               href="{{ url_for('edit_section', section_id=section.section_id, course_id=section.course_id) }}"
               class="btn btn-primary action-button"
               >Edit</a
