@@ -1,6 +1,6 @@
-from flask import render_template, request, redirect, url_for
+from flask import app, jsonify, render_template, request, redirect, url_for
 from flask import flash
-from models import CourseObjectives, Courses, DegreeCourses, Degrees, LearningObjectives
+from models import CourseObjectives, Courses, DegreeCourses, Degrees, Instructors, LearningObjectives, Sections
 from database import db
 
 def init_course_routes(app):
@@ -101,3 +101,39 @@ def init_course_routes(app):
         course = Courses.query.get_or_404(course_id)
         course_name = course.name
         return render_template('dataEntryPage/add_learning_objective_for_course.html', course=course)
+    
+
+    @app.route('/course_sections/<string:course_id>', methods=['GET'])
+    def course_sections(course_id):
+        try:
+            # Properly performing a join before filtering
+            sections = db.session.query(
+                Sections.section_id,
+                Sections.course_id,
+                Sections.year,
+                Sections.semester,
+                Sections.instructor_id,
+                Sections.enrollment_count,
+                Courses.name.label('course_name'),  
+                Instructors.name.label('instructor_name')
+            ).join(Courses, Sections.course_id == Courses.course_id)\
+            .join(Instructors, Sections.instructor_id == Instructors.instructor_id)\
+            .filter(Sections.course_id == course_id)\
+            .all()
+
+            sections_data = [{
+                'section_id': section.section_id,
+                'course_id': section.course_id,
+                'year': section.year,
+                'semester': section.semester.name if hasattr(section.semester, 'name') else section.semester,  # Handling enum if present
+                'instructor_id': section.instructor_id,
+                'enrollment_count': section.enrollment_count,
+                'course_name': section.course_name,  # Adding course_name to the output
+                'instrutor_name': section.instructor_name
+                
+            } for section in sections]
+
+            return jsonify(sections_data)
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
+
