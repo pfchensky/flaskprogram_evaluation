@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Add Course to Degree</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    {% include 'navbar.html' %}
+    <h1 class="text-center">
+      Add Course to {{ degree.name }} - {{ degree.level }}
+    </h1>
+    <form
+      action="{{ url_for('add_course_to_degree', name=degree.name, level=degree.level) }}"
+      method="post"
+    >
+      <div class="form-group">
+        <label for="course_number">Course Number:</label>
+        <input
+          type="text"
+          id="course_number"
+          name="course_number"
+          required
+          pattern="[A-Za-z]{2}\d{4}"
+          title="Course ID should be two letters followed by four numbers."
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="name">Course Name:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="is_core">Is this a core course?</label>
+        <select id="is_core" name="is_core" class="form-control">
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+  </body>
+</html>

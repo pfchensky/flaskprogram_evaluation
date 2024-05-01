@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{{ degree.name }} - {{ degree.level }} Details</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      h2 {
+        font-size: 30px; /* Example size, adjust as needed */
+        color: #1f5ba4; /* Example color, adjust as needed */
+        margin-top: 30px;
+        margin-bottom: 30px;
+      }
+      table {
+        width: 100%;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        padding: 10px;
+        border: 1px solid #ccc;
+      }
+      th {
+        background-color: #f8f9fa;
+      }
+      .header-spacing {
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    {% include 'navbar.html' %}
+    <h1 class="header-spacing text-center">
+      {{ degree.name }} - {{ degree.level }} Degree Details
+    </h1>
+    <div class="container">
+      <h2>Courses Associated with this Degree</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Course ID</th>
+            <th>Course Name</th>
+            <th>Core Course</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for dc, course_id, course_name, is_core in degree_courses %}
+          <tr>
+            <td>{{ course_id }}</td>
+            <td>{{ course_name }}</td>
+            <td>{{ 'Yes' if is_core else 'No' }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <!-- Add Course Button -->
+      <a
+        href="{{ url_for('add_course_to_degree', name=degree.name, level=degree.level) }}"
+        class="btn btn-success btn-custom"
+        >Add Course to Degree</a
+      >
+    </div>
+
+    <footer class="footer">
+      <p>University Program Evaluation System © 2024</p>
+    </footer>
+  </body>
+</html>
