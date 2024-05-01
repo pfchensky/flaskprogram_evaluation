@@ -115,25 +115,26 @@ def list_evaluation():
 
 @evaluation_routes.route('/edit_evaluation/<int:evaluation_id>', methods=['GET', 'POST'])
 def edit_evaluation(evaluation_id):
+    evaluation = Evaluations.query.get_or_404(evaluation_id)  # Get the existing evaluation or 404
     if request.method == 'POST':
-        evaluation = Evaluations.query.get_or_404(evaluation_id)
-        # Assuming you want to update the fields as well
-        evaluation.assessment_method = request.form.get('assessment_method')
-        evaluation.performance_A = request.form.get('performance_A')
-        evaluation.performance_B = request.form.get('performance_B')
-        evaluation.performance_C = request.form.get('performance_C')
-        evaluation.performance_F = request.form.get('performance_F')
-        evaluation.improvement_suggestions = request.form.get('improvement_suggestions')
+        # Update evaluation fields from the form
+        evaluation.assess_method = request.form.get('assessment_method')
+        evaluation.perform_A = request.form.get('performance_A')
+        evaluation.perform_B = request.form.get('performance_B')
+        evaluation.perform_C = request.form.get('performance_C')
+        evaluation.perform_F = request.form.get('performance_F')
+        evaluation.improve_sugs = request.form.get('improvement_suggestions')
+        
+        # Additional fields that may need to be updated
+        evaluation.learningObjective_id = request.form.get('learningObjective_id', type=int)
+        evaluation.degree_name = request.form.get('degree_name')
+        evaluation.degree_level = request.form.get('degree_level')
+
         db.session.commit()
         return redirect(url_for('evaluation_routes.evaluations_for_section', section_id=evaluation.section_id, course_id=evaluation.course_id))
-
-    # Make sure to join necessary tables to get all related data
-    evaluation = db.session.query(Evaluations).join(Sections, Sections.section_id == Evaluations.section_id)\
-                           .join(Courses, Courses.course_id == Sections.course_id)\
-                           .filter(Evaluations.evaluation_id == evaluation_id).first_or_404()
-
-    return render_template('evaluationPage/edit_evaluation.html', evaluation=evaluation)
-
+    else:
+        # Pre-fill form with existing evaluation data
+        return render_template('evaluationPage/edit_evaluation.html', evaluation=evaluation)
 
 
 @evaluation_routes.route('/update_evaluation/<int:evaluation_id>', methods=['POST'])
@@ -177,7 +178,7 @@ def evaluations_for_section(section_id, course_id):
 
     # If no evaluations are found, return an empty list
     if not evaluations:
-        return jsonify([])
+        return render_template('evaluationPage/no_evaluations.html', section_id=section_id, course_id=course_id)
 
     # Convert evaluations to a list of dicts to jsonify
     evaluations_list = []
@@ -199,7 +200,6 @@ def evaluations_for_section(section_id, course_id):
     # Return the results in JSON format
     # return jsonify(evaluations_list)
     return render_template('evaluationPage/evaluation_details.html', evaluations=evaluations_list)
-
 @evaluation_routes.route('/enter_evaluation/<int:section_id>/<string:course_id>')
 def enter_evaluation(section_id, course_id):
     return render_template('evaluationPage/enter_evaluation.html', section_id=section_id, course_id=course_id)
