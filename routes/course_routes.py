@@ -1,4 +1,5 @@
 from flask import render_template, request, redirect, url_for
+from flask import flash
 from models import CourseObjectives, Courses, DegreeCourses, Degrees, LearningObjectives
 from database import db
 
@@ -53,15 +54,50 @@ def init_course_routes(app):
     
     @app.route('/course_details/<course_id>', methods=['GET'])
     def course_details(course_id):
-        # Get the course by course_id
+        # 获取课程信息
         course = Courses.query.get_or_404(course_id)
-        # Find associated degrees with this course
+
+        # 查找与此课程关联的学位
         associated_degrees = DegreeCourses.query.filter_by(course_number=course_id).all()
         degrees = [Degrees.query.filter_by(name=degree.degree_name, level=degree.degree_level).first() for degree in associated_degrees]
-        # Get all the learning objectives associated with this course
+
+        # 获取与此课程关联的所有学习目标
         course_objectives = CourseObjectives.query.filter_by(course_id=course_id).all()
         objectives = [LearningObjectives.query.get(obj.learningObjective_id) for obj in course_objectives]
 
-        return render_template('dataEntryPage/course_details.html', course=course, degrees=degrees, 
-objectives=objectives)
+        return render_template('dataEntryPage/course_details.html', course=course, degrees=degrees, objectives=objectives)
+        
+    @app.route('/add_learning_objective_for_course/<course_id>', methods=['GET', 'POST'])
+    def add_learning_objective_for_course(course_id):
+        if request.method == 'POST':
+            # 获取表单数据
+            learningObjective_id = request.form.get('learningObjective_id')
+            title = request.form.get('title')
+            description = request.form.get('description')
 
+            # 创建学习目标对象，手动设置ID
+            new_objective = LearningObjectives(learningObjective_id=learningObjective_id, title=title, description=description)
+
+            try:
+                # 添加学习目标到数据库
+                db.session.add(new_objective)
+                db.session.commit()
+
+                # 创建课程目标关联对象
+                course_objective = CourseObjectives(course_id=course_id, learningObjective_id=new_objective.learningObjective_id)
+
+                # 添加课程目标关联到数据库
+                db.session.add(course_objective)
+                db.session.commit()
+
+                flash("Learning objective added successfully for the course!", 'success')
+
+                # 成功添加后重定向到课程详情页面
+                return redirect(url_for('course_details', course_id=course_id))
+            except Exception as e:
+                flash(f"An error occurred while adding learning objective for the course: {str(e)}", 'error')
+                db.session.rollback()
+
+        course = Courses.query.get_or_404(course_id)
+        course_name = course.name
+        return render_template('dataEntryPage/add_learning_objective_for_course.html', course=course)

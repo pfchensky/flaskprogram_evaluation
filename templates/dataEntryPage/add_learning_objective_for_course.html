@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Add Learning Objective for Course: {{ course_name }}</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    {% include 'navbar.html' %}
+    <h1 class="text-center">
+      Add Learning Objective for Course: {{ course_name }}
+    </h1>
+    <form
+      action="{{ url_for('add_learning_objective_for_course', course_id=course.course_id) }}"
+      method="post"
+    >
+      <label for="learningObjective_id">Learning Objective ID:</label>
+      <input
+        type="text"
+        id="learningObjective_id"
+        name="learningObjective_id"
+        required
+      />
+
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" required />
+
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" required></textarea>
+
+      <button type="submit">Add Objective</button>
+    </form>
+
+    <footer class="footer">
+      <p>University Program Evaluation System © 2024</p>
+    </footer>
+  </body>
+</html>
