@@ -11,11 +11,12 @@
     <form action="{{ url_for('add_learning_objective') }}" method="post">
       <label for="learningObjective_id">ID:</label>
       <input
-        type="text"
+        type="number"
         id="learningObjective_id"
         name="learningObjective_id"
         value="{{ objective.learningObjective_id }}"
         required
+        min="0"
       />
 
       <label for="title">Title:</label>
