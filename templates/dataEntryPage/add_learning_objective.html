@@ -2,12 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Edit Learning Objective</title>
+    <title>Add Learning Objective</title>
     <link rel="stylesheet" href="/static/styles.css" />
   </head>
   <body>
     {% include 'navbar.html' %}
-    <h1 class="text-center">Edit Learning Objective</h1>
+    <h1 class="text-center">Add Learning Objective</h1>
+    <!-- Display flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %}
+    <div class="container">
+      {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+    {% endif %} {% endwith %}
     <form action="{{ url_for('add_learning_objective') }}" method="post">
       <label for="learningObjective_id">ID:</label>
       <input

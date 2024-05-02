@@ -136,6 +136,7 @@ button {
 button:hover {
   background-color: #0056b3;
 }
+
 .footer {
   color: gray;
   padding: 10px 0;
@@ -230,6 +231,14 @@ th {
   color: #333; /* Ensures text color is dark for contrast */
   font-weight: bold; /* Makes header text bold */
 }
+
+form {
+  border: none; /* 确保没有边框 */
+  padding: 0; /* 移除内边距 */
+  margin: 0; /* 移除外边距 */
+  background: none; /* 确保没有背景 */
+  box-shadow: none; /* 移除阴影 */
+}
 .btn {
   padding: 0.5rem 1rem; /* Adjusts padding for a better touch area */
   font-size: 16px; /* Sets a consistent font size */
@@ -276,4 +285,33 @@ th {
     padding: 10px 20px; /* Adjusts button padding for easier interaction on touch devices */
     width: 100%; /* Full width buttons for easier access */
   }
+}
+
+.alert {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.alert-error,
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+.alert-info {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
 }
