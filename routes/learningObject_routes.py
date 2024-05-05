@@ -12,7 +12,7 @@ def init_learning_objective_routes(app):
     @app.route('/add_learning_objective', methods=['GET', 'POST'])
     def add_learning_objective():
         if request.method == 'POST':
-            # 获取表单中的字段
+
             learningObjective_id = request.form.get('learningObjective_id', type=int)
             title = request.form['title']
             description = request.form['description']
@@ -21,14 +21,14 @@ def init_learning_objective_routes(app):
                 flash('Invalid Learning Objective ID. Please enter a numeric ID.', 'error')
                 return render_template('dataEntryPage/add_learning_objective.html', objective=request.form)
 
-            # 检查ID是否已存在
+
             existing_objective = LearningObjectives.query.get(learningObjective_id)
             if existing_objective:
                 flash('A learning objective with this ID already exists.', 'error')
                 return render_template('dataEntryPage/add_learning_objective.html', objective=request.form)
 
             try:
-                # 使用手动输入的ID创建新的LearningObjective对象
+
                 new_objective = LearningObjectives(
                     learningObjective_id=learningObjective_id, title=title, description=description)
                 db.session.add(new_objective)
@@ -39,7 +39,7 @@ def init_learning_objective_routes(app):
                 db.session.rollback()
                 flash(f'An error occurred while adding the learning objective: {str(e)}', 'error')
 
-        # 提供一个空的LearningObjective对象作为默认值
+
         return render_template('dataEntryPage/add_learning_objective.html', objective=LearningObjectives())
 
     @app.route('/delete_learning_objective/<int:learningObjective_id>', methods=['POST'])
