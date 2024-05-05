@@ -59,3 +59,44 @@ Navigate to `http://127.0.0.1:5000/` in your web browser to access the applicati
 - `/routes`: Controllers for handling requests and responses for different parts of the application.
 - `/templates`: HTML files for rendering the frontend.
 - `/static`: Static files like CSS and images.
+
+## Project Structure
+
+```
+├── README.md
+├── app.py
+├── database.py
+├── models.py
+├── requirements.txt
+├── routes
+│   ├── __init__.py
+│   ├── __pycache__
+│   ├── course_routes.py
+│   ├── degree_routes.py
+│   ├── evaluation_routes.py
+│   ├── home_routes.py
+│   ├── instructor_routes.py
+│   ├── learningObject_routes.py
+│   ├── query_course_routes.py
+│   ├── query_degree_routes.py
+│   ├── query_instructor_routes.py
+│   ├── query_section_percentage_routes.py
+│   ├── query_section_routes.py
+│   └── section_routes.py
+├── static
+│   ├── background.jpg
+│   └── styles.css
+├── templates
+│   ├── Navbar.html
+│   ├── base.html
+│   ├── dataEntryPage
+│   ├── dataQueryPage
+│   ├── evaluationPage
+│   └── homepage.html
+└── venv
+   ├── bin
+   ├── include
+   ├── lib
+   └── pyvenv.cfg
+
+```
