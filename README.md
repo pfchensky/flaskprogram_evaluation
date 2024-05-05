@@ -59,7 +59,3 @@ Navigate to `http://127.0.0.1:5000/` in your web browser to access the applicati
 - `/routes`: Controllers for handling requests and responses for different parts of the application.
 - `/templates`: HTML files for rendering the frontend.
 - `/static`: Static files like CSS and images.
-
-```
-
-```
