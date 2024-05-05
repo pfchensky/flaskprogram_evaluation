@@ -233,11 +233,11 @@ th {
 }
 
 form {
-  border: none; /* 确保没有边框 */
-  padding: 0; /* 移除内边距 */
-  margin: 0; /* 移除外边距 */
-  background: none; /* 确保没有背景 */
-  box-shadow: none; /* 移除阴影 */
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: none;
+  box-shadow: none;
 }
 .btn {
   padding: 0.5rem 1rem; /* Adjusts padding for a better touch area */
