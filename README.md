@@ -1,6 +1,3 @@
-Here's a template for a README.md file that you can use for your Flask project. You can customize it further according to your project's specific features and functionalities.
-
-````markdown
 # Program Evaluation System
 
 ## Overview
@@ -22,6 +19,7 @@ This Flask application is designed to facilitate the management and evaluation o
    git clone https://github.com/pfchensky/flaskprogram_evaluation.git
    cd flaskprogram_evaluation
    ```
+
 ````
 
 2. **Setup a virtual environment:**
@@ -62,3 +60,4 @@ Navigate to `http://127.0.0.1:5000/` in your web browser to access the applicati
 - `/routes`: Controllers for handling requests and responses for different parts of the application.
 - `/templates`: HTML files for rendering the frontend.
 - `/static`: Static files like CSS and images.
+````
